@@ -4,7 +4,7 @@ Ovaj projekt nastao je u sklopu kolegija Razvoj ugradbenih sustava.
 # Opis projekta
 Ovaj projekt je rezultat rada u sklopu projeknog zadatka kolegija Razvoj ugradbenih sustava na Tehničkom veleučilištu u Zagrebu.
 
-Cilj ovog projekta je napraviti alamrni sustav sa senzorom pokreta koji će, nakon što se detektira pokret, kao odgovor na detetirani pokret se krenuti oglašavati i svijetliti. 
+Cilj ovog projekta je napraviti jednostavni alamarni sustav sa senzorom pokreta koji će, nakon što se detektira pokret, kao odgovor na detetirani pokret se krenuti oglašavati i svijetliti i time se povećava razina sigurnosti u slučaju neovlaštenog ulaska kao i detekcije pokreta. 
 Daljnje sve mogućnosti će se kroz kontinuirani rad razviti i zapisati u ovom opisu. 
 
 # Funkcijski zahtjevi
