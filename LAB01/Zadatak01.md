@@ -35,13 +35,12 @@ Proučiti koncept višestrukih prekida i njihovih prioriteta na odabranom proces
 
 ### 5. Dokumentacija i testiranje
 - **Jasno dokumentirajte** način rada vašeg programa, uključujući opis svakog prekida i njegovog prioriteta.
-
-## WokWi simulacija
-Ovaj zadatak riješen je pomoću Arduino Uno kontrolera, sadrži 2 LED diode, 2 otpornika od 220 ohma, 2 gumba i potenciometar.
-Simulaciju se može pokrenuti na linku: https://wokwi.com/projects/426522381219313665
 - **Provedite testove** kako biste osigurali da sustav pravilno reagira na različite događaje i da ne dolazi do sukoba između prekida.
 
 ## Dodatni zahtjevi (po izboru jedan)
 - **Implementirati mehanizam detekcije i rješavanja situacija** gdje se višestruki prekidi javljaju istovremeno.
 - **Korištenje DMA (*Direct Memory Access*)** ako je dostupno kako bi se smanjio utjecaj prekida na glavni procesor.
 
+## WokWi simulacija
+Ovaj zadatak riješen je pomoću Arduino Uno kontrolera, sadrži 2 LED diode, 2 otpornika od 220 ohma, 2 gumba i potenciometar.
+Simulaciju se može pokrenuti na linku: https://wokwi.com/projects/426522381219313665
