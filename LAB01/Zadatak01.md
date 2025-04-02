@@ -1,5 +1,11 @@
 # Upravljanje višestrukim prekidima i njihovim prioritetima
 
+## Općenito
+U mapi se nalaze datoteke preuzete sa WokWi simulacije sa samim kodom(sketch.ino), datoteka spojenih komponenti za vizualni prikaz (diagram.json) i  datoteka sa detaljima o samom zadatku koju upravo čitate. Ona se sastoji od:
+- cilja zadatka
+- specifikacija zadatka
+- Link na WokWi simulaciju 
+
 ## Cilj zadatka
 Proučiti koncept višestrukih prekida i njihovih prioriteta na odabranom procesoru te implementirati program koji efikasno upravlja različitim događajima koristeći odgovarajuće strategije rukovanja prekidima.
 
@@ -29,6 +35,10 @@ Proučiti koncept višestrukih prekida i njihovih prioriteta na odabranom proces
 
 ### 5. Dokumentacija i testiranje
 - **Jasno dokumentirajte** način rada vašeg programa, uključujući opis svakog prekida i njegovog prioriteta.
+
+## WokWi simulacija
+Ovaj zadatak riješen je pomoću Arduino Uno kontrolera, sadrži 2 LED diode, 2 otpornika od 220 ohma, 2 gumba i potenciometar.
+Simulaciju se može pokrenuti na linku: https://wokwi.com/projects/426522381219313665
 - **Provedite testove** kako biste osigurali da sustav pravilno reagira na različite događaje i da ne dolazi do sukoba između prekida.
 
 ## Dodatni zahtjevi (po izboru jedan)
