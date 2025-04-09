@@ -1,4 +1,4 @@
-### Lab1: Prekidi u Ugradbenim Sustavima
+## Lab1: Prekidi u Ugradbenim Sustavima
 ## Opis zadatka
 U ovom zadatku potrebno je koristi mikrokontroler za demonstraciju rada s prekidima na ugradbenom sustavu (vlastiti odabir). Implementirati različite prekidi za obradu signala s tipkala, tajmera, senzora udaljenosti i sl.. Koristiti Wokwi simulator za razvoj i ispitivanje koda.
 
