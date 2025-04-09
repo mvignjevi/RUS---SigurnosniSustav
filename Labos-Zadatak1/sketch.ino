@@ -3,7 +3,6 @@
 
 /**
  * @file
- * Kod projekta
  * @brief Projekt koji koristi više izvora prekida (vanjski, pin change, tajmer) i senzor udaljenosti
  * za upravljanje LED diodama različitih prioriteta.
  *
@@ -82,14 +81,11 @@ unsigned long ledYellowDistTime = 0;
 /// Vrijeme uključivanja zelene LED za udaljenost.
 unsigned long ledGreenDistTime = 0;
 
-/// Trajanje osvijetljenja visoko prioritetne LED u ms.
-const unsigned long HIGH_DURATION = 3000;
-/// Trajanje osvijetljenja srednje prioritetne LED u ms.
-const unsigned long MED_DURATION = 2000;
-/// Trajanje osvijetljenja nisko prioritetne LED u ms.
-const unsigned long LOW_DURATION = 1000;
-/// Trajanje osvijetljenja LED dioda za udaljenost u ms.
-const unsigned long DIST_DURATION = 1000;
+/// Vrijeme treptanja LED dioda za udaljenost.
+unsigned long ledBlinkTime = 0;
+
+/// Trajanje treptanja LED dioda u ms (200 ms).
+const unsigned long SENSOR_BLINK_INTERVAL = 200;
 
 /**
  * @brief Inicijalizacija komponenti, pinova, prekida i tajmera.
@@ -176,9 +172,10 @@ long measureDistance() {
 }
 
 /**
- * @brief Glavna petlja programa.
- *
- * Upravlja LED diodama na temelju stanja prekidača i izmjerene udaljenosti.
+ * @brief Funkcija za treptanje semafora LED dioda kada je udaljenost manja od 100 cm.
+ * 
+ * Semafor dioda (crvena, žuta, zelena) treptaju kada je udaljenost manja od 100 cm. 
+ * U suprotnom, LED diode su isključene.
  */
 void loop() {
   unsigned long currentTime = millis();
@@ -202,34 +199,19 @@ void loop() {
   }
 
   /// Gašenje LED dioda po isteku vremena
-  if ((currentTime - ledHighOnTime) >= HIGH_DURATION && ledHighOnTime != 0) {
+  if ((currentTime - ledHighOnTime) >= 3000 && ledHighOnTime != 0) {
     digitalWrite(LED_0, LOW);
     ledHighOnTime = 0;
   }
 
-  if ((currentTime - ledMedOnTime) >= MED_DURATION && ledMedOnTime != 0) {
+  if ((currentTime - ledMedOnTime) >= 2000 && ledMedOnTime != 0) {
     digitalWrite(LED_1, LOW);
     ledMedOnTime = 0;
   }
 
-  if ((currentTime - ledLowOnTime) >= LOW_DURATION && ledLowOnTime != 0) {
+  if ((currentTime - ledLowOnTime) >= 1000 && ledLowOnTime != 0) {
     digitalWrite(LED_2, LOW);
     ledLowOnTime = 0;
-  }
-
-  if ((currentTime - ledRedDistTime) >= DIST_DURATION && ledRedDistTime != 0) {
-    digitalWrite(LED_DIST_RED, LOW);
-    ledRedDistTime = 0;
-  }
-
-  if ((currentTime - ledYellowDistTime) >= DIST_DURATION && ledYellowDistTime != 0) {
-    digitalWrite(LED_DIST_YELLOW, LOW);
-    ledYellowDistTime = 0;
-  }
-
-  if ((currentTime - ledGreenDistTime) >= DIST_DURATION && ledGreenDistTime != 0) {
-    digitalWrite(LED_DIST_GREEN, LOW);
-    ledGreenDistTime = 0;
   }
 
   /// Mjerenje udaljenosti svakih 1s pomoću tajmera
@@ -239,17 +221,34 @@ void loop() {
     Serial.print(distance);
     Serial.println(" cm");
 
-    if (distance <= 100) {
-      digitalWrite(LED_DIST_GREEN, HIGH);
-      ledGreenDistTime = currentTime;
+    /// Treptanje zelene LED (ako je udaljenost između 100 cm i 50 cm)
+    if (distance > 50 && distance <= 100) {
+      if ((currentTime - ledBlinkTime) >= SENSOR_BLINK_INTERVAL) {
+        digitalWrite(LED_DIST_GREEN, !digitalRead(LED_DIST_GREEN));  // Treptanje zelene LED
+        ledBlinkTime = currentTime;  // Ažuriraj vrijeme treptanja
+      }
+    } else {
+      digitalWrite(LED_DIST_GREEN, LOW);  // Isključi zelenu LED ako nije u dometu
     }
-    if (distance <= 50) {
-      digitalWrite(LED_DIST_YELLOW, HIGH);
-      ledYellowDistTime = currentTime;
+
+    /// Treptanje žute LED (ako je udaljenost između 50 cm i 20 cm)
+    if (distance > 20 && distance <= 50) {
+      if ((currentTime - ledBlinkTime) >= SENSOR_BLINK_INTERVAL) {
+        digitalWrite(LED_DIST_YELLOW, !digitalRead(LED_DIST_YELLOW));  // Treptanje žute LED
+        ledBlinkTime = currentTime;  // Ažuriraj vrijeme treptanja
+      }
+    } else {
+      digitalWrite(LED_DIST_YELLOW, LOW);  // Isključi žutu LED ako nije u dometu
     }
+
+    /// Treptanje crvene LED (ako je udaljenost manja ili jednaka 20 cm)
     if (distance <= 20) {
-      digitalWrite(LED_DIST_RED, HIGH);
-      ledRedDistTime = currentTime;
+      if ((currentTime - ledBlinkTime) >= SENSOR_BLINK_INTERVAL) {
+        digitalWrite(LED_DIST_RED, !digitalRead(LED_DIST_RED));  // Treptanje crvene LED
+        ledBlinkTime = currentTime;  // Ažuriraj vrijeme treptanja
+      }
+    } else {
+      digitalWrite(LED_DIST_RED, LOW);  // Isključi crvenu LED ako nije u dometu
     }
 
     timerFlag = false;
