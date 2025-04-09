@@ -23,6 +23,10 @@
  */
 #define LED_2 10
 /**
+ * @brief Pin za ljubičastu LED diodu za TIMER.
+ */
+#define LED_Timer 5
+/**
  * @brief Pin za crvenu LED diodu za udaljenost manju ili jednaku 20 cm.
  */
 #define LED_DIST_RED 11
@@ -83,9 +87,13 @@ unsigned long ledGreenDistTime = 0;
 
 /// Vrijeme treptanja LED dioda za udaljenost.
 unsigned long ledBlinkTime = 0;
-
+/// Vrijeme treptanja LED diode za Timer prekid
+unsigned long ledTimerBlinkTime = 0; 
 /// Trajanje treptanja LED dioda u ms (200 ms).
 const unsigned long SENSOR_BLINK_INTERVAL = 200;
+///Vrijeme treptanja LED diode u Timer prekidu
+const unsigned long LED_TIMER_BLINK_INTERVAL = 1000; 
+
 
 /**
  * @brief Inicijalizacija komponenti, pinova, prekida i tajmera.
@@ -99,6 +107,7 @@ void setup() {
   pinMode(LED_DIST_RED, OUTPUT);
   pinMode(LED_DIST_YELLOW, OUTPUT);
   pinMode(LED_DIST_GREEN, OUTPUT);
+  pinMode(LED_Timer, OUTPUT);
 
   pinMode(BTN_0, INPUT_PULLUP);
   pinMode(BTN_1, INPUT_PULLUP);
@@ -250,6 +259,13 @@ void loop() {
     } else {
       digitalWrite(LED_DIST_RED, LOW);  // Isključi crvenu LED ako nije u dometu
     }
+
+    ///Logika treptanja Timer diode
+    if ((currentTime - ledTimerBlinkTime) >= LED_TIMER_BLINK_INTERVAL) {
+      digitalWrite(LED_Timer, !digitalRead(LED_Timer));  // Treptanje LED_Timer diode
+      ledTimerBlinkTime = currentTime;  // Ažuriraj vrijeme treptanja
+    }
+
 
     timerFlag = false;
   }

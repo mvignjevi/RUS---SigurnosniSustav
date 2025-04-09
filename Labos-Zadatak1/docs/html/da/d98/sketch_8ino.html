@@ -135,6 +135,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ae60a8c1e03b38463f77d556a4a0a8a3b" id="r_ae60a8c1e03b38463f77d556a4a0a8a3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae60a8c1e03b38463f77d556a4a0a8a3b">LED_2</a>&#160;&#160;&#160;10</td></tr>
 <tr class="memdesc:ae60a8c1e03b38463f77d556a4a0a8a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin za zelenu LED diodu s niskim prioritetom.  <br /></td></tr>
 <tr class="separator:ae60a8c1e03b38463f77d556a4a0a8a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b4189cc9223e0477ebaac83bd36448" id="r_af4b4189cc9223e0477ebaac83bd36448"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4b4189cc9223e0477ebaac83bd36448">LED_Timer</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:af4b4189cc9223e0477ebaac83bd36448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin za ljubičastu LED diodu za TIMER.  <br /></td></tr>
+<tr class="separator:af4b4189cc9223e0477ebaac83bd36448"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd2802dc6050c4ea5190c53142cdefa8" id="r_afd2802dc6050c4ea5190c53142cdefa8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd2802dc6050c4ea5190c53142cdefa8">LED_DIST_RED</a>&#160;&#160;&#160;11</td></tr>
 <tr class="memdesc:afd2802dc6050c4ea5190c53142cdefa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin za crvenu LED diodu za udaljenost manju ili jednaku 20 cm.  <br /></td></tr>
 <tr class="separator:afd2802dc6050c4ea5190c53142cdefa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,7 +184,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a65bd89b2d7e67c3d30e4e39917c8aee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija za mjerenje udaljenosti pomoću HC-SR04 senzora.  <br /></td></tr>
 <tr class="separator:a65bd89b2d7e67c3d30e4e39917c8aee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe461d27b9c48d5921c00d521181f12f" id="r_afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
-<tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glavna petlja programa.  <br /></td></tr>
+<tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija za treptanje semafora LED dioda kada je udaljenost manja od 100 cm.  <br /></td></tr>
 <tr class="separator:afe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -219,22 +222,21 @@ Variables</h2></td></tr>
 <tr class="memitem:a7acf30cc86176ab7d50d12f55dc663ec" id="r_a7acf30cc86176ab7d50d12f55dc663ec"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7acf30cc86176ab7d50d12f55dc663ec">ledGreenDistTime</a> = 0</td></tr>
 <tr class="memdesc:a7acf30cc86176ab7d50d12f55dc663ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme uključivanja zelene LED za udaljenost.  <br /></td></tr>
 <tr class="separator:a7acf30cc86176ab7d50d12f55dc663ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cd6754cc494f06093fc199d8365872e" id="r_a8cd6754cc494f06093fc199d8365872e"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cd6754cc494f06093fc199d8365872e">HIGH_DURATION</a> = 3000</td></tr>
-<tr class="memdesc:a8cd6754cc494f06093fc199d8365872e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trajanje osvijetljenja visoko prioritetne LED u ms.  <br /></td></tr>
-<tr class="separator:a8cd6754cc494f06093fc199d8365872e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a958c35b913f43b317aa18f86fe36db37" id="r_a958c35b913f43b317aa18f86fe36db37"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a958c35b913f43b317aa18f86fe36db37">MED_DURATION</a> = 2000</td></tr>
-<tr class="memdesc:a958c35b913f43b317aa18f86fe36db37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trajanje osvijetljenja srednje prioritetne LED u ms.  <br /></td></tr>
-<tr class="separator:a958c35b913f43b317aa18f86fe36db37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5334a6a44b2223a5d3e94b2db89ef782" id="r_a5334a6a44b2223a5d3e94b2db89ef782"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5334a6a44b2223a5d3e94b2db89ef782">LOW_DURATION</a> = 1000</td></tr>
-<tr class="memdesc:a5334a6a44b2223a5d3e94b2db89ef782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trajanje osvijetljenja nisko prioritetne LED u ms.  <br /></td></tr>
-<tr class="separator:a5334a6a44b2223a5d3e94b2db89ef782"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b4735ad877e30182546a7052654ebf3" id="r_a7b4735ad877e30182546a7052654ebf3"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b4735ad877e30182546a7052654ebf3">DIST_DURATION</a> = 1000</td></tr>
-<tr class="memdesc:a7b4735ad877e30182546a7052654ebf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trajanje osvijetljenja LED dioda za udaljenost u ms.  <br /></td></tr>
-<tr class="separator:a7b4735ad877e30182546a7052654ebf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dc3918f02de4e568d40df4f9dea1359" id="r_a1dc3918f02de4e568d40df4f9dea1359"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dc3918f02de4e568d40df4f9dea1359">ledBlinkTime</a> = 0</td></tr>
+<tr class="memdesc:a1dc3918f02de4e568d40df4f9dea1359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme treptanja LED dioda za udaljenost.  <br /></td></tr>
+<tr class="separator:a1dc3918f02de4e568d40df4f9dea1359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80ff33fb9ce53ff0ef3a67b08b8c9801" id="r_a80ff33fb9ce53ff0ef3a67b08b8c9801"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80ff33fb9ce53ff0ef3a67b08b8c9801">ledTimerBlinkTime</a> = 0</td></tr>
+<tr class="memdesc:a80ff33fb9ce53ff0ef3a67b08b8c9801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme treptanja LED diode za Timer prekid.  <br /></td></tr>
+<tr class="separator:a80ff33fb9ce53ff0ef3a67b08b8c9801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53d5cc422fe492e972e2d3701f48aca9" id="r_a53d5cc422fe492e972e2d3701f48aca9"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53d5cc422fe492e972e2d3701f48aca9">SENSOR_BLINK_INTERVAL</a> = 200</td></tr>
+<tr class="memdesc:a53d5cc422fe492e972e2d3701f48aca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trajanje treptanja LED dioda u ms (200 ms).  <br /></td></tr>
+<tr class="separator:a53d5cc422fe492e972e2d3701f48aca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedbb2d73d8591e8194e18a76f22a4d90" id="r_aedbb2d73d8591e8194e18a76f22a4d90"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aedbb2d73d8591e8194e18a76f22a4d90">LED_TIMER_BLINK_INTERVAL</a> = 1000</td></tr>
+<tr class="memdesc:aedbb2d73d8591e8194e18a76f22a4d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme treptanja LED diode u Timer prekidu.  <br /></td></tr>
+<tr class="separator:aedbb2d73d8591e8194e18a76f22a4d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Projekt koji koristi više izvora prekida (vanjski, pin change, tajmer) i senzor udaljenosti za upravljanje LED diodama različitih prioriteta. </p>
-<p>Kod projekta </p>
 <dl class="section author"><dt>Author</dt><dd>Maja Vignjević </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>5.4.2025. </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
@@ -398,6 +400,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af4b4189cc9223e0477ebaac83bd36448" name="af4b4189cc9223e0477ebaac83bd36448"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b4189cc9223e0477ebaac83bd36448">&#9670;&#160;</a></span>LED_Timer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LED_Timer&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pin za ljubičastu LED diodu za TIMER. </p>
+
+</div>
+</div>
 <a id="a84de9f6984c497dba22f318773f00f50" name="a84de9f6984c497dba22f318773f00f50"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a84de9f6984c497dba22f318773f00f50">&#9670;&#160;</a></span>TRIG</h2>
 
@@ -530,10 +548,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Glavna petlja programa. </p>
-<p>Upravlja LED diodama na temelju stanja prekidača i izmjerene udaljenosti. </p>
+<p>Funkcija za treptanje semafora LED dioda kada je udaljenost manja od 100 cm. </p>
+<p>Semafor dioda (crvena, žuta, zelena) treptaju kada je udaljenost manja od 100 cm. U suprotnom, LED diode su isključene. </p>
 <p>Gašenje LED dioda po isteku vremena</p>
 <p>Mjerenje udaljenosti svakih 1s pomoću tajmera</p>
+<p>Treptanje zelene LED (ako je udaljenost između 100 cm i 50 cm)</p>
+<p>Treptanje žute LED (ako je udaljenost između 50 cm i 20 cm)</p>
+<p>Treptanje crvene LED (ako je udaljenost manja ili jednaka 20 cm)</p>
+<p>Logika treptanja Timer diode</p>
 <div id="dynsection-3" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="../../closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -541,7 +563,7 @@ Variables</h2></td></tr>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="../../da/d98/sketch_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph.png" border="0" usemap="#ada/d98/sketch_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph" alt=""/></div>
 <map name="ada/d98/sketch_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph" id="ada/d98/sketch_8ino_afe461d27b9c48d5921c00d521181f12f_cgraph">
-<area shape="rect" title="Glavna petlja programa." alt="" coords="5,5,51,32"/>
+<area shape="rect" title="Funkcija za treptanje semafora LED dioda kada je udaljenost manja od 100 cm." alt="" coords="5,5,51,32"/>
 <area shape="rect" href="../../da/d98/sketch_8ino.html#a65bd89b2d7e67c3d30e4e39917c8aee2" title="Funkcija za mjerenje udaljenosti pomoću HC&#45;SR04 senzora." alt="" coords="99,5,222,32"/>
 <area shape="poly" title=" " alt="" coords="51,16,83,16,83,21,51,21"/>
 </map>
@@ -574,7 +596,7 @@ Variables</h2></td></tr>
 <div class="center"><img src="../../da/d98/sketch_8ino_a65bd89b2d7e67c3d30e4e39917c8aee2_icgraph.png" border="0" usemap="#ada/d98/sketch_8ino_a65bd89b2d7e67c3d30e4e39917c8aee2_icgraph" alt=""/></div>
 <map name="ada/d98/sketch_8ino_a65bd89b2d7e67c3d30e4e39917c8aee2_icgraph" id="ada/d98/sketch_8ino_a65bd89b2d7e67c3d30e4e39917c8aee2_icgraph">
 <area shape="rect" title="Funkcija za mjerenje udaljenosti pomoću HC&#45;SR04 senzora." alt="" coords="99,5,222,32"/>
-<area shape="rect" href="../../da/d98/sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Glavna petlja programa." alt="" coords="5,5,51,32"/>
+<area shape="rect" href="../../da/d98/sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Funkcija za treptanje semafora LED dioda kada je udaljenost manja od 100 cm." alt="" coords="5,5,51,32"/>
 <area shape="poly" title=" " alt="" coords="83,21,51,21,51,16,83,16"/>
 </map>
 </div>
@@ -671,22 +693,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7b4735ad877e30182546a7052654ebf3" name="a7b4735ad877e30182546a7052654ebf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b4735ad877e30182546a7052654ebf3">&#9670;&#160;</a></span>DIST_DURATION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const unsigned long DIST_DURATION = 1000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Trajanje osvijetljenja LED dioda za udaljenost u ms. </p>
-
-</div>
-</div>
 <a id="ac4ce473e63792dd4940f3e9e59576527" name="ac4ce473e63792dd4940f3e9e59576527"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac4ce473e63792dd4940f3e9e59576527">&#9670;&#160;</a></span>distance</h2>
 
@@ -703,19 +709,35 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a8cd6754cc494f06093fc199d8365872e" name="a8cd6754cc494f06093fc199d8365872e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cd6754cc494f06093fc199d8365872e">&#9670;&#160;</a></span>HIGH_DURATION</h2>
+<a id="aedbb2d73d8591e8194e18a76f22a4d90" name="aedbb2d73d8591e8194e18a76f22a4d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedbb2d73d8591e8194e18a76f22a4d90">&#9670;&#160;</a></span>LED_TIMER_BLINK_INTERVAL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const unsigned long HIGH_DURATION = 3000</td>
+          <td class="memname">const unsigned long LED_TIMER_BLINK_INTERVAL = 1000</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Trajanje osvijetljenja visoko prioritetne LED u ms. </p>
+<p>Vrijeme treptanja LED diode u Timer prekidu. </p>
+
+</div>
+</div>
+<a id="a1dc3918f02de4e568d40df4f9dea1359" name="a1dc3918f02de4e568d40df4f9dea1359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dc3918f02de4e568d40df4f9dea1359">&#9670;&#160;</a></span>ledBlinkTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ledBlinkTime = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrijeme treptanja LED dioda za udaljenost. </p>
 
 </div>
 </div>
@@ -799,6 +821,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a80ff33fb9ce53ff0ef3a67b08b8c9801" name="a80ff33fb9ce53ff0ef3a67b08b8c9801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80ff33fb9ce53ff0ef3a67b08b8c9801">&#9670;&#160;</a></span>ledTimerBlinkTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ledTimerBlinkTime = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrijeme treptanja LED diode za Timer prekid. </p>
+
+</div>
+</div>
 <a id="a8275ff06edede7872bd9549c357702b5" name="a8275ff06edede7872bd9549c357702b5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8275ff06edede7872bd9549c357702b5">&#9670;&#160;</a></span>ledYellowDistTime</h2>
 
@@ -815,35 +853,19 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5334a6a44b2223a5d3e94b2db89ef782" name="a5334a6a44b2223a5d3e94b2db89ef782"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5334a6a44b2223a5d3e94b2db89ef782">&#9670;&#160;</a></span>LOW_DURATION</h2>
+<a id="a53d5cc422fe492e972e2d3701f48aca9" name="a53d5cc422fe492e972e2d3701f48aca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53d5cc422fe492e972e2d3701f48aca9">&#9670;&#160;</a></span>SENSOR_BLINK_INTERVAL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const unsigned long LOW_DURATION = 1000</td>
+          <td class="memname">const unsigned long SENSOR_BLINK_INTERVAL = 200</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Trajanje osvijetljenja nisko prioritetne LED u ms. </p>
-
-</div>
-</div>
-<a id="a958c35b913f43b317aa18f86fe36db37" name="a958c35b913f43b317aa18f86fe36db37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a958c35b913f43b317aa18f86fe36db37">&#9670;&#160;</a></span>MED_DURATION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const unsigned long MED_DURATION = 2000</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Trajanje osvijetljenja srednje prioritetne LED u ms. </p>
+<p>Trajanje treptanja LED dioda u ms (200 ms). </p>
 
 </div>
 </div>

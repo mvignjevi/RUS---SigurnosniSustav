@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['setup_0',['setup',['../da/d98/sketch_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'sketch.ino']]],
-  ['sketch_2eino_1',['sketch.ino',['../da/d98/sketch_8ino.html',1,'']]]
+  ['timerflag_0',['timerFlag',['../da/d98/sketch_8ino.html#a6aeef4801eda4cb5bc8aaecc65a58922',1,'sketch.ino']]],
+  ['trig_1',['TRIG',['../da/d98/sketch_8ino.html#a84de9f6984c497dba22f318773f00f50',1,'sketch.ino']]]
 ];

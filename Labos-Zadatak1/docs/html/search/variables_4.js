@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['med_5fduration_0',['MED_DURATION',['../da/d98/sketch_8ino.html#a958c35b913f43b317aa18f86fe36db37',1,'sketch.ino']]]
+  ['timerflag_0',['timerFlag',['../da/d98/sketch_8ino.html#a6aeef4801eda4cb5bc8aaecc65a58922',1,'sketch.ino']]]
 ];
