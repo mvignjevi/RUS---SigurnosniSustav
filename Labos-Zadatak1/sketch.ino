@@ -3,6 +3,7 @@
 
 /**
  * @file
+ * Kod projekta
  * @brief Projekt koji koristi više izvora prekida (vanjski, pin change, tajmer) i senzor udaljenosti
  * za upravljanje LED diodama različitih prioriteta.
  *
