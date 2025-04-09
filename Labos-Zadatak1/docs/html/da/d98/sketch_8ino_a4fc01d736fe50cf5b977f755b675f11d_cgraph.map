@@ -1,0 +1,7 @@
+<map id="setup" name="setup">
+<area shape="rect" id="Node000001" title="Inicijalizacija komponenti, pinova, prekida i tajmera." alt="" coords="5,31,59,57"/>
+<area shape="rect" id="Node000002" href="$da/d98/sketch_8ino.html#ae5fdfee219da7b65482496dc929041bf" title="ISR rutina za visoki prioritet (crveni gumb)." alt="" coords="107,5,196,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,36,91,29,92,34,60,41"/>
+<area shape="rect" id="Node000003" href="$da/d98/sketch_8ino.html#a2b153ad32005920d10bb39f3768c1d29" title="ISR rutina za srednji prioritet (žuti gumb)." alt="" coords="108,56,195,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,47,93,54,92,59,59,52"/>
+</map>
