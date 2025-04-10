@@ -1,6 +1,6 @@
 PROJECT_NAME           = "RUS_Lab2_upravljanje_energijom"
 PROJECT_BRIEF          = "Lab2: Ušteda energije"
-OUTPUT_DIRECTORY       = ../docs/labos2
+OUTPUT_DIRECTORY       = ../docs/Labos-Zadatak2
 HTML_OUTPUT            = html
 USE_MDFILE_AS_MAINPAGE = Readme.md
 INPUT                  = .
