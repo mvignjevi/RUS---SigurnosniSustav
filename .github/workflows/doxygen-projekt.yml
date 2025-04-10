@@ -25,11 +25,12 @@ jobs:
       - name: Generate Doxygen Documentation
         run: |
           cd Projekt
+          rm -rf ../docs/projekt
           doxygen Doxyfile
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: Projekt/docs/html
+          publish_dir: docs/projekt/html
           destination_dir: projekt
