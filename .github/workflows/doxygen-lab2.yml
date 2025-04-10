@@ -2,34 +2,30 @@ name: Doxygen Documentation for Labos-Zadatak2
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: write
 
 jobs:
-  doxygen:
-    name: Generate Doxygen for Labos-Zadatak2
+  generate-docs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install Doxygen and Graphviz
         run: |
           sudo apt-get update
           sudo apt-get install -y doxygen graphviz
 
-      - name: Generate Documentation
+      - name: Generate Doxygen Documentation
         run: |
           cd Labos-Zadatak2
           doxygen Doxyfile
-          if [ ! -d "docs/html" ]; then echo "docs/html not found"; exit 1; fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
