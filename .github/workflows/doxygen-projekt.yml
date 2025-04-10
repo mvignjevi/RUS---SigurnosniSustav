@@ -22,15 +22,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y doxygen graphviz
 
+      - name: Create output directory
+        run: mkdir -p docs/Projekt/html
+
       - name: Generate Doxygen Documentation
         run: |
           cd Projekt
-          rm -rf ../docs/projekt
           doxygen Doxyfile
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/projekt/html
-          destination_dir: projekt
+          publish_dir: docs/Projekt/html
+          destination_dir: Projekt
