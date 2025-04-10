@@ -23,12 +23,12 @@ jobs:
           sudo apt-get install -y doxygen graphviz
 
       - name: Create output directory
-        run: mkdir -p docs/Labos-Zadatak1/html
+        run: mkdir -p ../docs/Labos-Zadatak1/html
+        working-directory: Labos-Zadatak1
 
       - name: Generate Doxygen Documentation
-        run: |
-          cd Labos-Zadatak1
-          doxygen Doxyfile
+        run: doxygen Doxyfile
+        working-directory: Labos-Zadatak1
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
