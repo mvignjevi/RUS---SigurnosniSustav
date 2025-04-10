@@ -1,6 +1,6 @@
 PROJECT_NAME           = "RUS_Lab1_prekidi"
 PROJECT_BRIEF          = "Lab1: Rad s prekidima"
-OUTPUT_DIRECTORY       = ../docs/labos1
+OUTPUT_DIRECTORY       = ../docs/Labos-Zadatak1
 HTML_OUTPUT            = html
 USE_MDFILE_AS_MAINPAGE = Readme.md
 INPUT                  = .
