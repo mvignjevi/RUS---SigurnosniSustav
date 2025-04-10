@@ -5,6 +5,10 @@
 Proučiti mogućnosti smanjenja potrošnje energije na odabranom procesoru korištenjem sleep modova. 
 Razviti program koji efikasno upravlja potrošnjom mikrokontrolera, omogućujući mu da bude u niskopotrošnom režimu dok nije aktivan.
 
+## Wokwi
+
+Simulacija je dostupna na Wokwi stranici putem linka: https://wokwi.com/projects/427751284860443649
+
 ## Zadatak
 
 ### 1. Implementacija Sleep moda
