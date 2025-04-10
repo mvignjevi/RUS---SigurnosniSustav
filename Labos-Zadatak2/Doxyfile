@@ -6,16 +6,16 @@
 # Opći podaci o projektu
 #-----------------------------------------------------------------------------
 PROJECT_NAME           = "RUS_Lab2_upravljanje_energijom"           # Ime projekta
-PROJECT_BRIEF          = "Lab2: Usteda energije   "  # Kratak opis
-PROJECT_LOGO           =                             # Putanja do logotipa (opcionalno)
-OUTPUT_DIRECTORY       = docs                        # Izlazni direktorij za dokumentaciju
-CREATE_SUBDIRS         = YES                         # Stvori poddirektorije za HTML/graph datoteke
-DOXYFILE_ENCODING      = UTF-8                       # Kodna stranica konfiguracijske datoteke
+PROJECT_BRIEF          = "Lab2: Usteda energije"                    # Kratak opis
+PROJECT_LOGO           =                                            # Putanja do logotipa (opcionalno)
+OUTPUT_DIRECTORY       = ./docs                                     # Izlazni direktorij za dokumentaciju
+CREATE_SUBDIRS         = YES                                        # Stvori poddirektorije za HTML/graph datoteke
+DOXYFILE_ENCODING      = UTF-8                                      # Kodna stranica konfiguracijske datoteke
 
 #-----------------------------------------------------------------------------
 # Glavna stranica dokumentacije
 #-----------------------------------------------------------------------------
-USE_MDFILE_AS_MAINPAGE = README.md                   # Koristi README.md kao početnu stranicu dokumentacije (ili .dox)
+USE_MDFILE_AS_MAINPAGE = Readme.md                   # Koristi README.md kao početnu stranicu dokumentacije (ili .dox)
 
 #-----------------------------------------------------------------------------
 # Izvorne datoteke
@@ -56,7 +56,7 @@ OPTIMIZE_OUTPUT_FOR_C  = YES                         # Stil prikaza prilagođen 
 # Dijagrami i grafički prikazi (Graphviz/DOT)
 #-----------------------------------------------------------------------------
 HAVE_DOT               = YES                         # Omogući korištenje Graphviz alata
-DOT_PATH               = C:/Program Files/Graphviz/bin # Putanja do `dot` programa (ovisno o sustavu)
+DOT_PATH               = /usr/bin/dot                # Putanja do `dot` programa (ovisno o sustavu)
 DOT_NUM_THREADS        = 2                           # Paralelno generiranje dijagrama
 DOT_FONTNAME           = Helvetica                   # Font u dijagramima
 DOT_FONTSIZE           = 10                          # Veličina fonta
