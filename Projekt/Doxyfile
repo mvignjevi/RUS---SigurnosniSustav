@@ -1,6 +1,6 @@
 PROJECT_NAME           = "RUS_Projekt"
 PROJECT_BRIEF          = "Završni projekt iz kolegija Ugradbeni sustavi"
-OUTPUT_DIRECTORY       = ../docs/projekt
+OUTPUT_DIRECTORY       = ../docs/Projekt
 HTML_OUTPUT            = html
 USE_MDFILE_AS_MAINPAGE = Readme.md
 INPUT                  = .
