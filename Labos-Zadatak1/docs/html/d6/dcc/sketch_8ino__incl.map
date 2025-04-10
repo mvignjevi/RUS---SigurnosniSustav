@@ -1,7 +1,0 @@
-<map id="sketch.ino" name="sketch.ino">
-<area shape="rect" id="Node000001" title="Projekt koji koristi više izvora prekida (vanjski, pin change, tajmer) i senzor udaljenosti za upravl..." alt="" coords="50,5,132,32"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,80,70,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,34,58,69,54,66,79,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="94,80,195,107"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,31,128,66,124,69,98,34"/>
-</map>
