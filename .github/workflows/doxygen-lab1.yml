@@ -25,11 +25,12 @@ jobs:
       - name: Generate Doxygen Documentation
         run: |
           cd Labos-Zadatak1
+          rm -rf ../docs/labos1
           doxygen Doxyfile
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: Labos-Zadatak1/docs/html
+          publish_dir: docs/labos1/html
           destination_dir: labos1
