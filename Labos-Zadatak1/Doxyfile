@@ -1,101 +1,49 @@
-#=============================================================================
-# Doxygen konfiguracijska datoteka za C jezik — ugradbeni sustav s prekidima
-#=============================================================================
-
-#-----------------------------------------------------------------------------
-# Opći podaci o projektu
-#-----------------------------------------------------------------------------
-PROJECT_NAME           = "RUS_Lab1_prekid"           # Ime projekta
-PROJECT_BRIEF          = "Lab1: Ugradbeni sustav s prekidima u C jeziku"  # Kratak opis
-PROJECT_LOGO           =                             # Putanja do logotipa (opcionalno)
-OUTPUT_DIRECTORY       = docs                        # Izlazni direktorij za dokumentaciju
-CREATE_SUBDIRS         = YES                         # Stvori poddirektorije za HTML/graph datoteke
-DOXYFILE_ENCODING      = UTF-8                       # Kodna stranica konfiguracijske datoteke
-
-#-----------------------------------------------------------------------------
-# Glavna stranica dokumentacije
-#-----------------------------------------------------------------------------
-USE_MDFILE_AS_MAINPAGE = README.md                   # Koristi README.md kao početnu stranicu dokumentacije (ili .dox)
-
-#-----------------------------------------------------------------------------
-# Izvorne datoteke
-#-----------------------------------------------------------------------------
-INPUT                  = .                           # Traži u trenutnom direktoriju
-RECURSIVE              = YES                         # Uključi sve poddirektorije
-FILE_PATTERNS          = *.c *.h *.ino               # Priznate ekstenzije (uključuju Arduino .ino)
-EXTENSION_MAPPING      = ino=c                       # Mapiraj .ino kao C datoteke (sintaksno)
-
-#-----------------------------------------------------------------------------
-# Izlazni formati
-#-----------------------------------------------------------------------------
-GENERATE_HTML          = YES                         # Generiraj HTML dokumentaciju
-HTML_OUTPUT            = html                        # HTML izlazni direktorij (unutar OUTPUT_DIRECTORY)
-GENERATE_LATEX         = NO                          # Ne generiraj LaTeX dokumentaciju
-GENERATE_RTF           = NO                          # Ne generiraj RTF dokumentaciju
-
-#-----------------------------------------------------------------------------
-# HTML izgled i ponašanje
-#-----------------------------------------------------------------------------
-HTML_COLORSTYLE        = AUTO_LIGHT                  # Automatski odabir boje (svijetla)
-HTML_DYNAMIC_SECTIONS  = YES                         # Omogući proširive odjeljke
-GENERATE_TREEVIEW      = YES                         # Bočna struktura stabla datoteka
-DISABLE_INDEX          = NO                          # Prikaži glavni indeks
-SHOW_USED_FILES        = YES                         # Prikaži popis analiziranih datoteka
-SHOW_FILES             = YES                         # Prikaži sekciju datoteka u dokumentaciji
-
-#-----------------------------------------------------------------------------
-# Izvlačenje dokumentacije iz koda
-#-----------------------------------------------------------------------------
-EXTRACT_ALL            = YES                         # Generiraj i za nekomentirani kod (radi cjelovitosti)
-EXTRACT_PRIVATE        = YES                         # Uključi i "static" funkcije/varijable
-EXTRACT_STATIC         = YES                         # Uključi statičke članove u datotekama
-EXTRACT_LOCAL_CLASSES  = YES                         # Uključi lokalne strukture i unutar funkcija
-OPTIMIZE_OUTPUT_FOR_C  = YES                         # Stil prikaza prilagođen za C (ne za C++)
-
-#-----------------------------------------------------------------------------
-# Dijagrami i grafički prikazi (Graphviz/DOT)
-#-----------------------------------------------------------------------------
-HAVE_DOT               = YES                         # Omogući korištenje Graphviz alata
-DOT_PATH               = C:/Program Files/Graphviz/bin # Putanja do `dot` programa (ovisno o sustavu)
-DOT_NUM_THREADS        = 2                           # Paralelno generiranje dijagrama
-DOT_FONTNAME           = Helvetica                   # Font u dijagramima
-DOT_FONTSIZE           = 10                          # Veličina fonta
-
-CLASS_DIAGRAMS         = YES                         # Prikaži dijagrame struktura
-CALL_GRAPH             = YES                         # Dijagram toka funkcijskih poziva
-CALLER_GRAPH           = YES                         # Dijagram funkcija koje pozivaju ovu funkciju
-COLLABORATION_GRAPH    = YES                         # Suradnički dijagrami među strukturama
-INCLUDE_GRAPH          = YES                         # Dijagrami uključenih datoteka (#include)
-INCLUDED_BY_GRAPH      = YES                         # Tko uključuje ovu datoteku?
-DIRECTORY_GRAPH        = YES                         # Hijerarhija direktorija
-GRAPHICAL_HIERARCHY    = YES                         # Stablo nasljeđivanja za strukture (ako ih ima)
-TEMPLATE_RELATIONS     = YES                         # Prikaži odnose među generičkim tipovima (nije relevantno za C)
-INTERACTIVE_SVG        = YES                         # Interaktivni SVG dijagrami (zumiranje, klikanje)
-
-#-----------------------------------------------------------------------------
-# Upozorenja i provjera kvalitete
-#-----------------------------------------------------------------------------
-WARNINGS               = YES                         # Omogući upozorenja tijekom generiranja
-WARN_IF_UNDOCUMENTED   = YES                         # Upozori ako funkcija nije dokumentirana
-WARN_IF_INCOMPLETE_DOC = YES                         # Upozori ako komentar nije potpun (npr. nedostaje opis parametara)
-
-#-----------------------------------------------------------------------------
-# Obrada preprocesiranog koda
-#-----------------------------------------------------------------------------
-ENABLE_PREPROCESSING   = YES                         # Omogući razumijevanje #define i #ifdef
-MACRO_EXPANSION        = YES                         # Proširi sve makroe
-EXPAND_ONLY_PREDEF     = NO                          # Nemoj ograničiti samo na predefinirane makroe
-SKIP_FUNCTION_MACROS   = NO                          # Nemoj preskočiti funkcijske makroe
-
-#-----------------------------------------------------------------------------
-# Ostale postavke
-#-----------------------------------------------------------------------------
-OUTPUT_LANGUAGE        = English                     # Jezik dokumentacije
-EXCLUDE_SYMLINKS       = YES                         # Preskoči simboličke poveznice
-TAB_SIZE               = 4                           # Širina tabulatora
-QUIET                  = NO                          # Prikaži tijek obrade u konzoli
-
-#-----------------------------------------------------------------------------
-# Završno
-#-----------------------------------------------------------------------------
-# Za @dot dijagrame u komentarima (npr. tokove prekida), Doxygen će ih također generirati ako je GRAPHVIZ instaliran u workflow.
+PROJECT_NAME           = "RUS_Lab1_prekidi"
+PROJECT_BRIEF          = "Lab1: Rad s prekidima"
+OUTPUT_DIRECTORY       = ./docs
+HTML_OUTPUT            = html
+USE_MDFILE_AS_MAINPAGE = Readme.md
+INPUT                  = .
+RECURSIVE              = YES
+FILE_PATTERNS          = *.c *.h *.ino
+EXTENSION_MAPPING      = ino=c
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_RTF           = NO
+HTML_COLORSTYLE        = AUTO_LIGHT
+HTML_DYNAMIC_SECTIONS  = YES
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+SHOW_USED_FILES        = YES
+SHOW_FILES             = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+OPTIMIZE_OUTPUT_FOR_C  = YES
+HAVE_DOT               = YES
+DOT_PATH               = /usr/bin/dot
+DOT_NUM_THREADS        = 2
+DOT_FONTNAME           = Helvetica
+DOT_FONTSIZE           = 10
+CLASS_DIAGRAMS         = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+COLLABORATION_GRAPH    = YES
+INCLUDE_GRAPH          = YES
+INCLUDED_BY_GRAPH      = YES
+DIRECTORY_GRAPH        = YES
+GRAPHICAL_HIERARCHY    = YES
+TEMPLATE_RELATIONS     = YES
+INTERACTIVE_SVG        = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_INCOMPLETE_DOC = YES
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = NO
+SKIP_FUNCTION_MACROS   = NO
+OUTPUT_LANGUAGE        = English
+EXCLUDE_SYMLINKS       = YES
+TAB_SIZE               = 4
+QUIET                  = NO
