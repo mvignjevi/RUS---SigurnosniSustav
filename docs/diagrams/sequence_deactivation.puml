@@ -1,0 +1,10 @@
+@startuml
+actor Korisnik
+participant Mikrokontroler
+participant Buzzer
+participant LED
+
+Korisnik -> Mikrokontroler : Pritiskom na tipkalo
+Mikrokontroler -> Buzzer : Isključi
+Mikrokontroler -> LED : Ugasi
+@enduml

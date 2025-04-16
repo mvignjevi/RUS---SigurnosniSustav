@@ -1,0 +1,16 @@
+@startuml
+actor Senzor
+actor Korisnik
+actor Aktuatori
+
+rectangle "Mikrokontroler" {
+  usecase "Detekcija pokreta" as UC1
+  usecase "Aktivacija LED i buzzera" as UC2
+  usecase "Deaktivacija sustava" as UC3
+}
+
+Senzor --> UC1
+UC1 --> UC2
+Korisnik --> UC3
+UC3 --> UC2
+@enduml

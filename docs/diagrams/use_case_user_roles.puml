@@ -1,0 +1,14 @@
+@startuml
+actor Korisnik
+actor Senzor
+actor Aktuatori
+
+rectangle "Sustav" {
+  usecase "Aktivacija alarma" as UC1
+  usecase "Deaktivacija sustava" as UC2
+}
+
+Korisnik --> UC2
+Senzor --> UC1
+UC1 --> Aktuatori
+@enduml
