@@ -1,3 +1,5 @@
+/** @mainpage RUS - Labos 1: Rad s prekidima
+
 ## Lab1: Prekidi u Ugradbenim Sustavima
 
 ## Wokwi
