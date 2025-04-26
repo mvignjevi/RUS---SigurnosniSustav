@@ -1,0 +1,26 @@
+var sketch_8ino =
+[
+    [ "WOKWI_SIMULACIJA", "sketch_8ino.html#aeeae80d510f30b226f65a16c18294e2a", null ],
+    [ "enterSleep", "sketch_8ino.html#ae5b5093bef9a291e112c49e9aae5feec", null ],
+    [ "lcd", "sketch_8ino.html#ac21d052bacaf620de472c9d000f0be38", null ],
+    [ "loop", "sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f", null ],
+    [ "resetStanje", "sketch_8ino.html#a781975978f0b9958ad07e530a579b141", null ],
+    [ "setup", "sketch_8ino.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
+    [ "ugasiAlarm", "sketch_8ino.html#af3cf6746793db8fea1c55c501b1deb2d", null ],
+    [ "wakeUp", "sketch_8ino.html#a079d49a5302222debfe4dc54cf7a5c7a", null ],
+    [ "alarmAktivan", "sketch_8ino.html#ae3a902b93090166727a553586295ebb6", null ],
+    [ "buttonPin", "sketch_8ino.html#a4ddb8b6ae564eb22f7c74f2683a63b8e", null ],
+    [ "buzzerPin", "sketch_8ino.html#a988a608b186de34e793324aee3ec73ee", null ],
+    [ "interval", "sketch_8ino.html#a2e243d502b1d882c3b827c6b070cc02c", null ],
+    [ "irPin", "sketch_8ino.html#ab1ac24ace0db3b096e56744b0ea173ed", null ],
+    [ "ledPin", "sketch_8ino.html#a2cd9f0d96c9cd0637798de3baa7aee60", null ],
+    [ "pirPin", "sketch_8ino.html#a8124f4ae570c6b416e85d4948705938e", null ],
+    [ "prethodno", "sketch_8ino.html#aa0ac8085d6bd0e2f03eff856c6835a43", null ],
+    [ "stanje", "sketch_8ino.html#a1d52a86a270366bbb7d6875a9b0df4d4", null ],
+    [ "wakeUpFlag", "sketch_8ino.html#ae9c6353b7ababe2622a259d5f71a41ac", null ],
+    [ "zadnjeVrijemeDetekcije", "sketch_8ino.html#add49e425acd5c0cfe40c78769b0c1d77", null ],
+    [ "zadnjeVrijemeGumba", "sketch_8ino.html#afb1bb411af196187526f8ae6125239ee", null ],
+    [ "zadnjeVrijemeIR", "sketch_8ino.html#a632a8150a5127d3ae2080f091b43e048", null ],
+    [ "zahtjevZaGasenjeGumbom", "sketch_8ino.html#a8e0ff2d3ee9d861b4231dcc61361c129", null ],
+    [ "zahtjevZaGasenjeIR", "sketch_8ino.html#a4886a63ed5b453590080e57c2cf760a5", null ]
+];
