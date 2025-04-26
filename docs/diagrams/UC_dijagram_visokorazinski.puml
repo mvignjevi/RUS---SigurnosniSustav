@@ -1,0 +1,23 @@
+@startuml
+actor "Korisnik" as User
+actor "Mikrokontroler" as MCU
+actor "PIR senzor" as PIR
+actor "IR daljinski" as IR
+
+rectangle "Sigurnosni sustav" {
+  User --> (Pritisak IR tipke 'PLAY')
+  IR --> (Pokretanje sustava putem IR PLAY tipke)
+  
+  User --> (Pritisak IR tipke '1')
+  IR --> (Deaktivacija alarma IR tipkom '1')
+
+  User --> (Pritisak IR tipke 'POWER')
+  IR --> (Potpuno gašenje sustava IR POWER tipkom)
+
+  User --> (Pritisak fizičkog gumba za deaktivaciju)
+  PIR --> (Detekcija pokreta)
+  
+  MCU --> (Aktivacija alarma)
+  MCU --> (Deaktivacija alarma)
+}
+@enduml

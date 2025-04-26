@@ -1,0 +1,36 @@
+@startuml
+start
+:Pokretanje sustava (IR PLAY);
+:LCD prikazuje "Sustav aktiviran";
+:Ulazak u stanje mirovanja;
+
+while (true)
+    if (Primljen IR POWER signal?) then (da)
+        :Gašenje sustava;
+        :LCD prikazuje "Sustav ugašen";
+        stop
+    else (ne)
+        if (PIR detektira pokret?) then (da)
+            :Aktivacija alarma (LED + buzzer);
+            :LCD prikazuje upozorenje;
+            while (Alarm aktivan)
+                if (Pritisnut gumb ili IR tipka '1'?) then (da)
+                    :Deaktivacija alarma;
+                    :LCD prikazuje "Alarm ugašen";
+                    :Povratak u stanje mirovanja;
+                else (ne)
+                    if (Primljen IR POWER signal?) then (da)
+                        :Gašenje sustava;
+                        :LCD prikazuje "Sustav ugašen";
+                        stop
+                    else (ne)
+                        :Alarm ostaje aktivan;
+                    endif
+                endif
+            endwhile
+        else (ne)
+            :Sustav ostaje u stanju mirovanja;
+        endif
+    endif
+endwhile
+@enduml

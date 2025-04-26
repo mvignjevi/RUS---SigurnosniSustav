@@ -1,0 +1,19 @@
+@startuml
+actor "Korisnik" as User
+participant "Mikrokontroler (Arduino)" as MCU
+participant "Buzzer + LED" as Actuators
+participant "LCD zaslon" as LCD
+participant "IR prijemnik" as IR
+
+== Reakcija korisnika ==
+alt Korisnik pritisne fizički gumb
+  User -> MCU : Pritisak fizičkog gumba
+  MCU -> Actuators : Gasi alarm
+  MCU -> LCD : Prikazuje "Alarm ugašen!"
+else Korisnik koristi IR daljinski (tipka '1')
+  User -> IR : IR signal (tipka '1')
+  IR -> MCU : IR dekodiran (tipka '1')
+  MCU -> Actuators : Gasi alarm
+  MCU -> LCD : Prikazuje "Alarm ugašen!"
+end
+@enduml

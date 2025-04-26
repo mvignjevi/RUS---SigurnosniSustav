@@ -1,0 +1,37 @@
+@startuml
+class "Sensor" {
+  + detectMovement()
+  + detectButtonPress()
+}
+
+class "IRReceiver" {
+  + receiveSignal()
+  + decodeSignal()
+}
+
+class "Controller" {
+  + processMotionSignal()
+  + activateAlarm()
+  + deactivateAlarm()
+  + enterSleepMode()
+}
+
+class "Actuator" {
+  + activateLED()
+  + activateBuzzer()
+  + deactivateLED()
+  + deactivateBuzzer()
+}
+
+class "Display" {
+  + showMessage()
+  + clearDisplay()
+  + turnOnBacklight()
+  + turnOffBacklight()
+}
+
+Sensor --> Controller : šalje pokret/gumb signal
+IRReceiver --> Controller : šalje IR signal
+Controller --> Actuator : upravlja alarmom
+Controller --> Display : prikazuje poruke
+@enduml
