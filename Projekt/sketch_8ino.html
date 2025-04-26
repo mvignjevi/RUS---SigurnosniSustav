@@ -92,41 +92,61 @@ $(document).ready(function(){initNavTree('sketch_8ino.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">sketch.ino File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Upravljanje alarmnim sustavom temeljenim na PIR senzoru uz mogućnost kontrole putem IR daljinskog upravljača.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;LiquidCrystal_I2C.h&gt;</code><br />
 <code>#include &lt;IRremote.hpp&gt;</code><br />
 <code>#include &lt;avr/sleep.h&gt;</code><br />
 <code>#include &lt;avr/interrupt.h&gt;</code><br />
+</div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for sketch.ino:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="sketch_8ino__incl.png" border="0" usemap="#asketch_8ino" alt=""/></div>
+<map name="asketch_8ino" id="asketch_8ino">
+<area shape="rect" title="Upravljanje alarmnim sustavom temeljenim na PIR senzoru uz mogućnost kontrole putem IR daljinskog upr..." alt="" coords="251,5,339,31"/>
+<area shape="rect" title=" " alt="" coords="5,79,152,104"/>
+<area shape="poly" title=" " alt="" coords="261,33,127,77,126,72,259,28"/>
+<area shape="rect" title=" " alt="" coords="177,79,287,104"/>
+<area shape="poly" title=" " alt="" coords="286,33,253,70,249,66,282,29"/>
+<area shape="rect" title=" " alt="" coords="311,79,406,104"/>
+<area shape="poly" title=" " alt="" coords="307,29,341,67,337,70,303,33"/>
+<area shape="rect" title=" " alt="" coords="431,79,545,104"/>
+<area shape="poly" title=" " alt="" coords="327,28,445,71,443,76,325,33"/>
+</map>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:aeeae80d510f30b226f65a16c18294e2a" id="r_aeeae80d510f30b226f65a16c18294e2a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#aeeae80d510f30b226f65a16c18294e2a">WOKWI_SIMULACIJA</a></td></tr>
-<tr class="memdesc:aeeae80d510f30b226f65a16c18294e2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definirati samo tijekom simulacije u Wokwi-u.  <br /></td></tr>
+<tr class="memdesc:aeeae80d510f30b226f65a16c18294e2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Knjižnica za konfiguraciju prekida  <br /></td></tr>
 <tr class="separator:aeeae80d510f30b226f65a16c18294e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac21d052bacaf620de472c9d000f0be38" id="r_ac21d052bacaf620de472c9d000f0be38"><td class="memItemLeft" align="right" valign="top">LiquidCrystal_I2C&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#ac21d052bacaf620de472c9d000f0be38">lcd</a> (0x27, 20, 4)</td></tr>
-<tr class="memdesc:ac21d052bacaf620de472c9d000f0be38"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCD 20x4 display.  <br /></td></tr>
+<tr class="memdesc:ac21d052bacaf620de472c9d000f0be38"><td class="mdescLeft">&#160;</td><td class="mdescRight">LCD objekt za prikaz poruka korisniku (20x4 znakova, I2C adresa 0x27).  <br /></td></tr>
 <tr class="separator:ac21d052bacaf620de472c9d000f0be38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a079d49a5302222debfe4dc54cf7a5c7a" id="r_a079d49a5302222debfe4dc54cf7a5c7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a079d49a5302222debfe4dc54cf7a5c7a">wakeUp</a> ()</td></tr>
-<tr class="memdesc:a079d49a5302222debfe4dc54cf7a5c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija koja se poziva pri buđenju iz sleep moda.  <br /></td></tr>
+<tr class="memdesc:a079d49a5302222debfe4dc54cf7a5c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija prekida koja se poziva pri buđenju sustava.  <br /></td></tr>
 <tr class="separator:a079d49a5302222debfe4dc54cf7a5c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a781975978f0b9958ad07e530a579b141" id="r_a781975978f0b9958ad07e530a579b141"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a781975978f0b9958ad07e530a579b141">resetStanje</a> ()</td></tr>
-<tr class="memdesc:a781975978f0b9958ad07e530a579b141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resetira stanje sustava nakon deaktivacije alarma.  <br /></td></tr>
+<tr class="memdesc:a781975978f0b9958ad07e530a579b141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resetira sustav nakon deaktivacije alarma.  <br /></td></tr>
 <tr class="separator:a781975978f0b9958ad07e530a579b141"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3cf6746793db8fea1c55c501b1deb2d" id="r_af3cf6746793db8fea1c55c501b1deb2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#af3cf6746793db8fea1c55c501b1deb2d">ugasiAlarm</a> ()</td></tr>
-<tr class="memdesc:af3cf6746793db8fea1c55c501b1deb2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija za gašenje alarma i prijelaz sustava u pasivno stanje.  <br /></td></tr>
+<tr class="memdesc:af3cf6746793db8fea1c55c501b1deb2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija za gašenje aktivnog alarma.  <br /></td></tr>
 <tr class="separator:af3cf6746793db8fea1c55c501b1deb2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5b5093bef9a291e112c49e9aae5feec" id="r_ae5b5093bef9a291e112c49e9aae5feec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#ae5b5093bef9a291e112c49e9aae5feec">enterSleep</a> ()</td></tr>
-<tr class="memdesc:ae5b5093bef9a291e112c49e9aae5feec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija za ulazak sustava u sleep mode radi štednje energije.  <br /></td></tr>
+<tr class="memdesc:ae5b5093bef9a291e112c49e9aae5feec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funkcija za ulazak sustava u sleep mode radi uštede energije.  <br /></td></tr>
 <tr class="separator:ae5b5093bef9a291e112c49e9aae5feec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d" id="r_a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
-<tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicijalizacija sustava.  <br /></td></tr>
+<tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicijalizacija sustava prilikom pokretanja.  <br /></td></tr>
 <tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe461d27b9c48d5921c00d521181f12f" id="r_afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
 <tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glavna petlja sustava.  <br /></td></tr>
@@ -134,53 +154,91 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Pinovi uređaja</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Definicije svih digitalnih pinova korištenih u sustavu. </p>
+</div></td></tr>
 <tr class="memitem:a2cd9f0d96c9cd0637798de3baa7aee60" id="r_a2cd9f0d96c9cd0637798de3baa7aee60"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a2cd9f0d96c9cd0637798de3baa7aee60">ledPin</a> = 6</td></tr>
-<tr class="memdesc:a2cd9f0d96c9cd0637798de3baa7aee60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin LED diode.  <br /></td></tr>
+<tr class="memdesc:a2cd9f0d96c9cd0637798de3baa7aee60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digitalni pin na kojem je spojena LED dioda.  <br /></td></tr>
 <tr class="separator:a2cd9f0d96c9cd0637798de3baa7aee60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a988a608b186de34e793324aee3ec73ee" id="r_a988a608b186de34e793324aee3ec73ee"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a988a608b186de34e793324aee3ec73ee">buzzerPin</a> = 5</td></tr>
-<tr class="memdesc:a988a608b186de34e793324aee3ec73ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin buzzera.  <br /></td></tr>
+<tr class="memdesc:a988a608b186de34e793324aee3ec73ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digitalni pin na kojem je spojen buzzer.  <br /></td></tr>
 <tr class="separator:a988a608b186de34e793324aee3ec73ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8124f4ae570c6b416e85d4948705938e" id="r_a8124f4ae570c6b416e85d4948705938e"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a8124f4ae570c6b416e85d4948705938e">pirPin</a> = 4</td></tr>
-<tr class="memdesc:a8124f4ae570c6b416e85d4948705938e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin PIR senzora.  <br /></td></tr>
+<tr class="memdesc:a8124f4ae570c6b416e85d4948705938e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digitalni pin na kojem je spojen PIR senzor.  <br /></td></tr>
 <tr class="separator:a8124f4ae570c6b416e85d4948705938e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1ac24ace0db3b096e56744b0ea173ed" id="r_ab1ac24ace0db3b096e56744b0ea173ed"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#ab1ac24ace0db3b096e56744b0ea173ed">irPin</a> = 3</td></tr>
-<tr class="memdesc:ab1ac24ace0db3b096e56744b0ea173ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin IR prijemnika.  <br /></td></tr>
+<tr class="memdesc:ab1ac24ace0db3b096e56744b0ea173ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digitalni pin za IR prijemnik.  <br /></td></tr>
 <tr class="separator:ab1ac24ace0db3b096e56744b0ea173ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ddb8b6ae564eb22f7c74f2683a63b8e" id="r_a4ddb8b6ae564eb22f7c74f2683a63b8e"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a4ddb8b6ae564eb22f7c74f2683a63b8e">buttonPin</a> = 2</td></tr>
-<tr class="memdesc:a4ddb8b6ae564eb22f7c74f2683a63b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin fizičkog gumba.  <br /></td></tr>
+<tr class="memdesc:a4ddb8b6ae564eb22f7c74f2683a63b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digitalni pin za fizički gumb (INPUT_PULLUP)  <br /></td></tr>
 <tr class="separator:a4ddb8b6ae564eb22f7c74f2683a63b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Statusne zastavice sustava</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Varijable koje čuvaju trenutno stanje sustava i signale za akcije. </p>
+</div></td></tr>
 <tr class="memitem:ae9c6353b7ababe2622a259d5f71a41ac" id="r_ae9c6353b7ababe2622a259d5f71a41ac"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#ae9c6353b7ababe2622a259d5f71a41ac">wakeUpFlag</a> = false</td></tr>
-<tr class="memdesc:ae9c6353b7ababe2622a259d5f71a41ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica za buđenje iz sleep moda.  <br /></td></tr>
+<tr class="memdesc:ae9c6353b7ababe2622a259d5f71a41ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica koju postavlja PIR prekid za buđenje iz sleep moda.  <br /></td></tr>
 <tr class="separator:ae9c6353b7ababe2622a259d5f71a41ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e0ff2d3ee9d861b4231dcc61361c129" id="r_a8e0ff2d3ee9d861b4231dcc61361c129"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a8e0ff2d3ee9d861b4231dcc61361c129">zahtjevZaGasenjeGumbom</a> = false</td></tr>
-<tr class="memdesc:a8e0ff2d3ee9d861b4231dcc61361c129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica za gašenje alarma gumbom.  <br /></td></tr>
+<tr class="memdesc:a8e0ff2d3ee9d861b4231dcc61361c129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica za gašenje alarma putem gumba.  <br /></td></tr>
 <tr class="separator:a8e0ff2d3ee9d861b4231dcc61361c129"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4886a63ed5b453590080e57c2cf760a5" id="r_a4886a63ed5b453590080e57c2cf760a5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a4886a63ed5b453590080e57c2cf760a5">zahtjevZaGasenjeIR</a> = false</td></tr>
-<tr class="memdesc:a4886a63ed5b453590080e57c2cf760a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica za gašenje alarma IR daljinskim.  <br /></td></tr>
+<tr class="memdesc:a4886a63ed5b453590080e57c2cf760a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica za gašenje alarma putem IR daljinskog (tipka 1)  <br /></td></tr>
 <tr class="separator:a4886a63ed5b453590080e57c2cf760a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3a902b93090166727a553586295ebb6" id="r_ae3a902b93090166727a553586295ebb6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#ae3a902b93090166727a553586295ebb6">alarmAktivan</a> = false</td></tr>
-<tr class="memdesc:ae3a902b93090166727a553586295ebb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trenutno stanje alarma.  <br /></td></tr>
+<tr class="memdesc:ae3a902b93090166727a553586295ebb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trenutno stanje alarma (aktiviran / deaktiviran)  <br /></td></tr>
 <tr class="separator:ae3a902b93090166727a553586295ebb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d52a86a270366bbb7d6875a9b0df4d4" id="r_a1d52a86a270366bbb7d6875a9b0df4d4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a1d52a86a270366bbb7d6875a9b0df4d4">stanje</a> = false</td></tr>
-<tr class="memdesc:a1d52a86a270366bbb7d6875a9b0df4d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trenutno stanje LED/buzzera (ON/OFF)  <br /></td></tr>
+<tr class="memdesc:a1d52a86a270366bbb7d6875a9b0df4d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trenutno stanje LED diode i buzzera (blinking efekt)  <br /></td></tr>
 <tr class="separator:a1d52a86a270366bbb7d6875a9b0df4d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfef90b166278763e5118f5580f48463" id="r_acfef90b166278763e5118f5580f48463"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#acfef90b166278763e5118f5580f48463">sustavPokrenut</a> = false</td></tr>
+<tr class="memdesc:acfef90b166278763e5118f5580f48463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica je li sustav pokrenut IR PLAY tipkom.  <br /></td></tr>
+<tr class="separator:acfef90b166278763e5118f5580f48463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c90ddef81fc5238afe8633e20e3ebb" id="r_a23c90ddef81fc5238afe8633e20e3ebb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a23c90ddef81fc5238afe8633e20e3ebb">zahtjevZaGasenjeSustava</a> = false</td></tr>
+<tr class="memdesc:a23c90ddef81fc5238afe8633e20e3ebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zastavica za potpuno gašenje sustava putem IR POWER tipke.  <br /></td></tr>
+<tr class="separator:a23c90ddef81fc5238afe8633e20e3ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Definirani IR kodovi</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Konstantne vrijednosti za interpretaciju pritisnutih tipki na daljinskom. </p>
+</div></td></tr>
+<tr class="memitem:a57302b2a873ba32a98f013fc784e25a0" id="r_a57302b2a873ba32a98f013fc784e25a0"><td class="memItemLeft" align="right" valign="top">const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a57302b2a873ba32a98f013fc784e25a0">IR_KOD_PALJENJE</a> = 0x57A8FF00</td></tr>
+<tr class="memdesc:a57302b2a873ba32a98f013fc784e25a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">IR kod za PLAY tipku (pokretanje sustava)  <br /></td></tr>
+<tr class="separator:a57302b2a873ba32a98f013fc784e25a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c07a919e05dd74466f6e4d7882cb032" id="r_a1c07a919e05dd74466f6e4d7882cb032"><td class="memItemLeft" align="right" valign="top">const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a1c07a919e05dd74466f6e4d7882cb032">IR_KOD_GASENJE</a> = 0x5DA2FF00</td></tr>
+<tr class="memdesc:a1c07a919e05dd74466f6e4d7882cb032"><td class="mdescLeft">&#160;</td><td class="mdescRight">IR kod za POWER tipku (gašenje cijelog sustava)  <br /></td></tr>
+<tr class="separator:a1c07a919e05dd74466f6e4d7882cb032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00069362e9095a0f6a0c9ff9bc516b6b" id="r_a00069362e9095a0f6a0c9ff9bc516b6b"><td class="memItemLeft" align="right" valign="top">const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a00069362e9095a0f6a0c9ff9bc516b6b">IR_KOD_GASENJE_ALARMA</a> = 0xCF30FF00</td></tr>
+<tr class="memdesc:a00069362e9095a0f6a0c9ff9bc516b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">IR kod za tipku 1 (gašenje samo aktivnog alarma)  <br /></td></tr>
+<tr class="separator:a00069362e9095a0f6a0c9ff9bc516b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Varijable za mjerenje vremena</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Pomoćne varijable za kontrolu vremena događaja u sustavu. </p>
+</div></td></tr>
 <tr class="memitem:aa0ac8085d6bd0e2f03eff856c6835a43" id="r_aa0ac8085d6bd0e2f03eff856c6835a43"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#aa0ac8085d6bd0e2f03eff856c6835a43">prethodno</a> = 0</td></tr>
-<tr class="memdesc:aa0ac8085d6bd0e2f03eff856c6835a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme zadnje promjene LED/buzzera.  <br /></td></tr>
+<tr class="memdesc:aa0ac8085d6bd0e2f03eff856c6835a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme zadnje promjene stanja LED/buzzera za efekt blinkanja.  <br /></td></tr>
 <tr class="separator:aa0ac8085d6bd0e2f03eff856c6835a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e243d502b1d882c3b827c6b070cc02c" id="r_a2e243d502b1d882c3b827c6b070cc02c"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a2e243d502b1d882c3b827c6b070cc02c">interval</a> = 300</td></tr>
-<tr class="memdesc:a2e243d502b1d882c3b827c6b070cc02c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval blinkanja LED/buzzera.  <br /></td></tr>
+<tr class="memdesc:a2e243d502b1d882c3b827c6b070cc02c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval blinkanja LED/buzzera u milisekundama.  <br /></td></tr>
 <tr class="separator:a2e243d502b1d882c3b827c6b070cc02c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add49e425acd5c0cfe40c78769b0c1d77" id="r_add49e425acd5c0cfe40c78769b0c1d77"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#add49e425acd5c0cfe40c78769b0c1d77">zadnjeVrijemeDetekcije</a> = 0</td></tr>
-<tr class="memdesc:add49e425acd5c0cfe40c78769b0c1d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme zadnje PIR detekcije.  <br /></td></tr>
+<tr class="memdesc:add49e425acd5c0cfe40c78769b0c1d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme zadnje registracije pokreta PIR senzorom.  <br /></td></tr>
 <tr class="separator:add49e425acd5c0cfe40c78769b0c1d77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a632a8150a5127d3ae2080f091b43e048" id="r_a632a8150a5127d3ae2080f091b43e048"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#a632a8150a5127d3ae2080f091b43e048">zadnjeVrijemeIR</a> = 0</td></tr>
-<tr class="memdesc:a632a8150a5127d3ae2080f091b43e048"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme zadnjeg IR signala.  <br /></td></tr>
+<tr class="memdesc:a632a8150a5127d3ae2080f091b43e048"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme posljednjeg primljenog IR signala.  <br /></td></tr>
 <tr class="separator:a632a8150a5127d3ae2080f091b43e048"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb1bb411af196187526f8ae6125239ee" id="r_afb1bb411af196187526f8ae6125239ee"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sketch_8ino.html#afb1bb411af196187526f8ae6125239ee">zadnjeVrijemeGumba</a> = 0</td></tr>
-<tr class="memdesc:afb1bb411af196187526f8ae6125239ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme zadnjeg pritiska gumba.  <br /></td></tr>
+<tr class="memdesc:afb1bb411af196187526f8ae6125239ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrijeme posljednjeg pritiska fizičkog gumba.  <br /></td></tr>
 <tr class="separator:afb1bb411af196187526f8ae6125239ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Upravljanje alarmnim sustavom temeljenim na PIR senzoru uz mogućnost kontrole putem IR daljinskog upravljača. </p>
+<p>Ovaj program omogućava:</p><ul>
+<li>Detekciju pokreta pomoću PIR senzora</li>
+<li>Aktivaciju alarma (LED + buzzer) pri detekciji pokreta</li>
+<li>Gašenje alarma pomoću fizičkog gumba ili IR daljinskog</li>
+<li>Upravljanje sleep modom za uštedu energije</li>
+<li>Pokretanje i gašenje cijelog sustava putem IR daljinskog (PLAY/POWER tipke)</li>
+<li>Prikaz stanja na LCD zaslonu</li>
+</ul>
+<dl class="section author"><dt>Author</dt><dd>Maja Vignjević - <a href="#" onclick="location.href='mai'+'lto:'+'mvi'+'gn'+'jev'+'i@'+'tvz'+'.h'+'r'; return false;">mvign<span class="obfuscator">.nosp@m.</span>jevi<span class="obfuscator">.nosp@m.</span>@tvz.<span class="obfuscator">.nosp@m.</span>hr</a> </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="aeeae80d510f30b226f65a16c18294e2a" name="aeeae80d510f30b226f65a16c18294e2a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeeae80d510f30b226f65a16c18294e2a">&#9670;&#160;</a></span>WOKWI_SIMULACIJA</h2>
 
@@ -193,7 +251,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definirati samo tijekom simulacije u Wokwi-u. </p>
+<p>&lt; Knjižnica za konfiguraciju prekida </p>
+<p>&lt; Knjižnica za upravljanje LCD 20x4 preko I2C sučelja &lt; Knjižnica za upravljanje IR daljinskim prijemom &lt; Knjižnica za upravljanje sleep modom procesora Definicija za rad u Wokwi simulatoru (onemogućava stvarni sleep) </p>
 
 </div>
 </div>
@@ -213,14 +272,23 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Funkcija za ulazak sustava u sleep mode radi štednje energije. </p>
-<p>Funkcija stavlja mikrokontroler u najdublji režim spavanja (Power-down), gdje svi moduli prestaju raditi osim onih koji su potrebni za buđenje (PIR).</p>
-<p>Kada se kod izvršava u Wokwi simulatoru, stvarno spavanje nije moguće, pa se umjesto toga koristi simulacija koja aktivno čeka PIR signal (HIGH).</p>
-<dl class="section note"><dt>Note</dt><dd>Makronaredba <code>WOKWI_SIMULACIJA</code> određuje da li se koristi pravo spavanje ili simulirano čekanje na pokret. </dd></dl>
-<p>Debug poruka za Wokwi simulaciju.</p>
-<p>Aktivno čekanje da PIR senzor detektira pokret (HIGH).</p>
-<p>Kratko čekanje da ne blokiramo procesor nepotrebno.</p>
-<p>Postavljanje zastavice za signalizaciju buđenja.</p>
+<p>Funkcija za ulazak sustava u sleep mode radi uštede energije. </p>
+<p>Kada se koristi stvarni hardver:</p><ul>
+<li>Mikrokontroler ulazi u Power-down sleep mode gdje prestaje s radom do prekida (PIR).</li>
+</ul>
+<p>Kada se koristi Wokwi simulator:</p><ul>
+<li>Sleep mode se simulira aktivnim čekanjem da PIR senzor registrira pokret</li>
+<li>Tijekom čekanja, funkcija detektira i IR signal za gašenje sustava (IR POWER tipka)</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Makronaredba <code>WOKWI_SIMULACIJA</code> odlučuje koristi li se stvarni ili simulirani sleep način rada. </dd></dl>
+<p>&lt; Ispis informativne poruke za Wokwi simulaciju</p>
+<p>&lt; Aktivno čekanje dok PIR ne registrira pokret ili ne primimo IR naredbu za gašenje</p>
+<p>&lt; Kratko čekanje za rasterećenje CPU-a</p>
+<p>&lt; Provjera ima li novih IR signala</p>
+<p>&lt; Spremanje primljenog IR koda</p>
+<p>&lt; Postavlja se zahtjev za gašenje sustava</p>
+<p>&lt; Priprema IR prijemnika za sljedeći signal</p>
+<p>&lt; Postavljanje zastavice za buđenje iz simuliranog sleepa</p>
 
 </div>
 </div>
@@ -256,7 +324,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>LCD 20x4 display. </p>
+<p>LCD objekt za prikaz poruka korisniku (20x4 znakova, I2C adresa 0x27). </p>
 
 </div>
 </div>
@@ -276,55 +344,120 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Glavna petlja sustava. </p>
-<p>Provjerava stanje gumba, IR signala i PIR detekciju, upravlja aktivacijom i deaktivacijom alarma te prelascima u sleep mode. </p>
-<p>Čitanje trenutnog stanja gumba.</p>
-<p>0 = gumb pritisnut (LOW zbog INPUT_PULLUP). 1 = gumb nije pritisnut.</p>
-<p>Pohrana prethodnog stanja gumba za detekciju "falling edge" događaja (otpuštanje-pritisak).</p>
-<p>Inicijalno postavljeno na HIGH (nepritisnut gumb).</p>
-<p>Spremanje trenutno pročitanog stanja gumba za usporedbu s prethodnim stanjem.</p>
-<p>Detekcija promjene stanja gumba (falling edge).</p>
-<p>Ako je prethodno stanje bilo HIGH (gumb nije bio pritisnut), a trenutno stanje LOW (gumb sada pritisnut), tada bilježimo trenutak pritiska i pokrećemo odgovarajuću akciju.</p>
-<p>Bilježenje vremena pritiska gumba.</p>
-<p>Koristi se za eventualno debouncing ili kasnije provjere trajanja pritiska.</p>
-<p>Provjera da li je alarm aktivan.</p>
-<p>Ako je aktivan, postavlja se zastavica za gašenje alarma preko gumba.</p>
-<p>Ažuriranje prethodnog stanja gumba za sljedeću iteraciju.</p>
-<p>Provjerava postoji li novi IR signal i reagira na prihvaćeni kod.</p>
-<p>Dekodira primljeni IR signal. Ako je kod prepoznat kao kod za gašenje alarma i prošlo je više od 500 ms od zadnje IR aktivnosti, postavlja zahtjev za gašenje alarma.</p>
-<p>&lt; Spremanje dekodiranog IR signala</p>
-<p>&lt; Postavljanje zastavice za gašenje alarma putem IR</p>
-<p>&lt; Ažuriranje vremena zadnjeg IR signala</p>
-<p>&lt; Priprema IR prijemnika za sljedeći signal</p>
-<p>Aktivira alarm nakon buđenja iz sleep moda.</p>
-<p>Ako sustav nije aktivirao alarm i ako je postavljena zastavica buđenja (nakon detekcije pokreta PIR senzorom), pokreće se alarm. Postavlja se vrijeme zadnje detekcije i omogućava pozadinsko svjetlo LCD ekrana.</p>
-<p>&lt; Resetiranje zastavice buđenja</p>
-<p>&lt; Pohranjivanje vremena detekcije pokreta</p>
-<p>&lt; Postavljanje stanja aktivnog alarma</p>
-<p>&lt; Paljenje LCD pozadinskog osvjetljenja</p>
-<p>&lt; Informacija o aktivaciji alarma</p>
-<p>Upravljanje ponašanjem aktivnog alarma.</p>
-<p>Kad je alarm aktiviran, LED dioda i buzzer blinkaju u određenim intervalima. Ispisuje se upozorenje na LCD ekran. Također provjerava zahtjev za gašenje alarma (bilo putem gumba ili IR daljinskog upravljača).</p>
-<p>&lt; Dohvaća trenutno vrijeme u milisekundama</p>
-<p>&lt; Provjerava je li prošlo dovoljno vremena za promjenu stanja</p>
-<p>&lt; Ažurira vrijeme posljednje promjene</p>
-<p>&lt; Inverzira stanje LED diode i buzzera (ON/OFF)</p>
-<p>&lt; Uključuje ili isključuje LED diodu ovisno o stanju</p>
-<p>&lt; Uključuje ili isključuje buzzer ovisno o stanju</p>
-<p>&lt; Postavlja kursor na početak prvog reda LCD-a</p>
-<p>&lt; Ispisuje upozorenje ili briše sadržaj reda</p>
-<p>&lt; Postavlja kursor na početak drugog reda LCD-a</p>
-<p>&lt; Ispisuje poruku o detekciji pokreta ili briše red</p>
-<p>&lt; Provjerava je li primljen zahtjev za gašenje alarma</p>
-<p>&lt; Poziva funkciju za gašenje alarma</p>
-<p>&lt; Resetira zastavicu zahtjeva za gašenje preko gumba</p>
-<p>&lt; Resetira zastavicu zahtjeva za gašenje preko IR signala</p>
-<p>&lt; Resetira sustav u stanje mirovanja</p>
-<p>Upravljanje ulaskom u sleep mod kad je sustav miran.</p>
-<p>Ako alarm nije aktivan i PIR senzor ne detektira pokret (LOW stanje), sustav ulazi u simulirani ili stvarni sleep mod ovisno o konfiguraciji.</p>
-<p>&lt; Ispis informativne poruke o ulasku u sleep</p>
-<p>&lt; Kratka pauza prije ulaska u sleep zbog stabilizacije sustava</p>
-<p>&lt; Poziv funkcije za ulazak u sleep mod (simulirani ili stvarni)</p>
-<p>&lt; Ispis poruke nakon buđenja iz sleep moda</p>
+<p>Funkcija neprekidno izvršava sljedeće:</p><ul>
+<li>Provjerava zahtjev za gašenje cijelog sustava (IR POWER tipkom)</li>
+<li>Čita stanje fizičkog gumba</li>
+<li>Sprema trenutno i prethodno stanje gumba za detekciju pritiska </li>
+</ul>
+<p>Provjera zahtjeva za isključivanje cijelog sustava.</p>
+<p>Ako je primljen zahtjev za gašenje (IR POWER) i sustav je pokrenut, sustav se isključuje:</p><ul>
+<li>Briše LCD ekran</li>
+<li>Prikazuje poruku o gašenju sustava</li>
+<li>Resetira sve kontrolne varijable</li>
+<li>Gasi LED i buzzer</li>
+<li>Izlazi iz funkcije <a class="el" href="sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Glavna petlja sustava.">loop()</a></li>
+</ul>
+<p>&lt; Ispis poruke o isključenju sustava</p>
+<p>&lt; Brisanje trenutnog sadržaja LCD zaslona</p>
+<p>&lt; Postavljanje kursora na početak LCD-a</p>
+<p>&lt; Prikaz poruke o isključenju sustava</p>
+<p>&lt; Pauza kako bi korisnik mogao pročitati poruku</p>
+<p>&lt; Ponovno čišćenje LCD zaslona</p>
+<p>&lt; Gašenje pozadinskog osvjetljenja LCD zaslona</p>
+<p>Resetiranje stanja sustava</p>
+<p>&lt; Sustav više nije pokrenut</p>
+<p>&lt; Alarm se gasi</p>
+<p>&lt; Resetiranje buđenja</p>
+<p>&lt; Resetiranje zahtjeva za gašenje</p>
+<p>Gašenje svih signalnih uređaja</p>
+<p>&lt; Gašenje LED diode</p>
+<p>&lt; Gašenje buzzera</p>
+<p>&lt; Izlazak iz funkcije <a class="el" href="sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Glavna petlja sustava.">loop()</a> — ništa dalje se ne izvršava</p>
+<p>Čitanje stanja fizičkog gumba.</p>
+<p>Očitava se trenutačno stanje gumba:</p><ul>
+<li>LOW = pritisnut</li>
+<li>HIGH = nije pritisnut (INPUT_PULLUP logika)</li>
+</ul>
+<p>Spremanje prethodnog stanja gumba.</p>
+<p>Potrebno za detekciju "falling edge" događaja (s visoke na nisku razinu).</p>
+<dl class="section note"><dt>Note</dt><dd>Inicijalno postavljeno na HIGH jer gumb nije pritisnut (zbog pull-upa).</dd></dl>
+<p>Spremanje trenutnog stanja gumba.</p>
+<p>Koristi se za usporedbu s prethodnim stanjem.</p>
+<p>Detekcija pritiska fizičkog gumba (falling edge detekcija).</p>
+<p>Provjerava prijelaz stanja gumba s HIGH na LOW, što znači da je korisnik pritisnuo gumb. Ako je alarm trenutno aktivan, postavlja se zahtjev za njegovo gašenje.</p>
+<p>&lt; Bilježenje trenutnog vremena pritiska gumba</p>
+<p>Provjera je li alarm trenutno aktivan.</p>
+<p>Ako jest, postavlja se zastavica za gašenje alarma putem gumba.</p>
+<p>&lt; Postavlja zahtjev za gašenje alarma pritiskom gumba</p>
+<p>&lt; Informativni ispis za korisnika / debug</p>
+<p>Ažuriranje prethodnog stanja gumba.</p>
+<p>Sprema trenutno stanje gumba za sljedeću iteraciju <a class="el" href="sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Glavna petlja sustava.">loop()</a> funkcije, kako bi se i dalje mogla detektirati promjena stanja.</p>
+<p>Obrada primljenih IR signala.</p>
+<p>Dekodira se primljeni IR signal i provjerava kojem tipu naredbe pripada:</p><ul>
+<li>Ako je IR_KOD_PALJENJE (PLAY tipka), pokreće sustav ako još nije aktiviran.</li>
+<li>Ako je IR_KOD_GASENJE (POWER tipka), postavlja zahtjev za gašenje cijelog sustava.</li>
+<li>Ako je IR_KOD_GASENJE_ALARMA (tipka 1) i alarm je aktivan, postavlja zahtjev za gašenje alarma.</li>
+</ul>
+<p>&lt; Spremanje dekodiranog IR koda</p>
+<p>Provjera je li primljena IR naredba za pokretanje sustava (PLAY tipka).</p>
+<p>&lt; Pokreni sustav samo ako već nije pokrenut</p>
+<p>&lt; Označi da je sustav pokrenut</p>
+<p>&lt; Resetiraj zastavicu za buđenje</p>
+<p>Animacija pokretanja - LED i buzzer blinkaju 3 sekunde.</p>
+<p>&lt; Isključi LCD pozadinsko svjetlo radi štednje</p>
+<p>&lt; Informacija da je sustav pokrenut</p>
+<p>Provjera je li primljena IR naredba za gašenje cijelog sustava (POWER tipka).</p>
+<p>&lt; Postavljanje zahtjeva za gašenje sustava</p>
+<p>Provjera je li primljena IR naredba za gašenje samo aktivnog alarma (tipka 1).</p>
+<p>&lt; Postavljanje zahtjeva za gašenje alarma putem IR</p>
+<p>&lt; Informativna poruka</p>
+<p>&lt; Priprema IR prijemnika za primanje novih signala</p>
+<p>Provjera stanja pokrenutosti sustava.</p>
+<p>Ako sustav nije pokrenut putem IR PLAY tipke, izlazi iz funkcije <code><a class="el" href="sketch_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Glavna petlja sustava.">loop()</a></code> bez daljnje obrade.</p>
+<dl class="section note"><dt>Note</dt><dd>Sustav neće reagirati na PIR, gumb ili IR signale dok nije aktivno pokrenut korisničkom naredbom.</dd></dl>
+<p>&lt; Prekid funkcije - sustav čeka na pokretanje.</p>
+<p>Aktivacija alarma nakon buđenja iz sleep moda.</p>
+<p>Ako alarm trenutno nije aktiviran, a zastavica za buđenje (PIR) je postavljena, sustav prelazi u aktivno stanje alarma.</p>
+<p>&lt; Resetiranje zastavice buđenja da se spriječi višestruka aktivacija.</p>
+<p>&lt; Spremanje trenutnog vremena detekcije za kasniju obradu.</p>
+<p>&lt; Označavanje da je alarm sada aktivan.</p>
+<p>&lt; Paljenje pozadinskog svjetla LCD ekrana za prikaz alarma.</p>
+<p>&lt; Informacija u serijskom monitoru o aktivaciji alarma.</p>
+<p>Upravljanje aktivnim alarmom i njegovim gašenjem.</p>
+<p>Ako je alarm aktiviran:</p><ul>
+<li>LED dioda i buzzer blinkaju u definiranim vremenskim intervalima.</li>
+<li>Ispisuju se odgovarajuće poruke upozorenja na LCD ekranu.</li>
+<li>Provjerava se zahtjev za gašenje alarma (preko gumba ili IR signala).</li>
+</ul>
+<p>&lt; Dohvaćanje trenutnog vremena u milisekundama.</p>
+<p>Upravljanje blinkanjem LED/buzzera.</p>
+<p>Ako je proteklo dovoljno vremena od zadnje promjene stanja (definirano s <code>interval</code>), mijenja se stanje LED diode i buzzera.</p>
+<p>&lt; Ažurira vrijeme posljednje promjene.</p>
+<p>&lt; Inverzija stanja (ON/OFF) za LED i buzzer.</p>
+<p>&lt; Postavlja stanje LED diode.</p>
+<p>&lt; Postavlja stanje buzzera.</p>
+<p>&lt; Postavlja kursor na početak prvog reda LCD-a.</p>
+<p>&lt; Prikazuje ili briše upozorenje o pokretu.</p>
+<p>&lt; Postavlja kursor na početak drugog reda LCD-a.</p>
+<p>&lt; Prikazuje ili briše opis pokreta.</p>
+<p>Provjera zahtjeva za gašenje alarma.</p>
+<p>Ako je korisnik pritisnuo gumb ili poslao IR signal za gašenje:</p><ul>
+<li>Alarm se gasi.</li>
+<li>Resetiraju se zastavice zahtjeva za gašenje.</li>
+<li>Sustav se vraća u stanje mirovanja.</li>
+</ul>
+<p>&lt; Poziv funkcije za gašenje alarma.</p>
+<p>&lt; Resetiranje zahtjeva za gašenje putem gumba.</p>
+<p>&lt; Resetiranje zahtjeva za gašenje putem IR signala.</p>
+<p>&lt; Povratak sustava u pasivno stanje (stanje mirovanja).</p>
+<p>Upravljanje ulaskom u sleep mode kada alarm nije aktivan.</p>
+<p>Ako alarm nije aktivan i PIR senzor detektira stanje mirovanja (LOW na PIR izlazu):</p><ul>
+<li>Sustav se prebacuje u sleep mode (ili simulaciju sleepa).</li>
+</ul>
+<p>&lt; Poruka o ulasku u sleep mode.</p>
+<p>&lt; Kratka pauza radi stabilizacije sustava.</p>
+<p>&lt; Poziv funkcije za ulazak u sleep mode.</p>
+<p>&lt; Poruka o buđenju iz sleepa.</p>
 
 </div>
 </div>
@@ -343,39 +476,25 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resetira stanje sustava nakon deaktivacije alarma. </p>
-<p>Funkcija izvršava:</p><ul>
-<li>Reset svih internih zastavica povezanih s alarmom:<ul>
-<li><code>alarmAktivan</code> postaje <code>false</code> </li>
-<li><code>zahtjevZaGasenjeGumbom</code> i <code>zahtjevZaGasenjeIR</code> postaju <code>false</code> </li>
+<p>Resetira sustav nakon deaktivacije alarma. </p>
+<p>Funkcija:</p><ul>
+<li>Resetira sve zastavice vezane uz alarm (alarmAktivan, zahtjevi za gašenje)</li>
+<li>Prikazuje poruku "Stanje mirovanja" korisniku</li>
+<li>Gasi LCD pozadinsko svjetlo za štednju energije</li>
+<li>Čeka stabilizaciju PIR senzora (da prestane detektirati pokret)</li>
 </ul>
-</li>
-<li>Upravljanje LCD ekranom:<ul>
-<li>Prikazuje korisniku poruku "Stanje mirovanja" tijekom 2 sekunde</li>
-<li>Briše ekran i gasi pozadinsko osvjetljenje radi uštede energije</li>
-</ul>
-</li>
-<li>Stabilizaciju PIR senzora:<ul>
-<li>Čeka da PIR senzor više ne registrira pokret (OUT pin u LOW stanju)</li>
-</ul>
-</li>
-</ul>
-<dl class="section note"><dt>Note</dt><dd>Stabilizacija PIR senzora je ključna da bi se spriječila lažna reaktivacija alarma odmah nakon što je prethodni pokret detektiran i alarm ugašen. </dd></dl>
-<p>Resetiramo statusne zastavice alarma</p>
-<p>&lt; Alarm više nije aktivan</p>
-<p>&lt; Gumb za gašenje više nije potreban</p>
-<p>&lt; IR za gašenje više nije potreban</p>
-<p>Prikazujemo korisniku da je sustav u stanju mirovanja</p>
-<p>&lt; Brišemo prethodni sadržaj s LCD ekrana</p>
-<p>&lt; Postavljamo kursor na početak LCD-a</p>
-<p>&lt; Ispisujemo poruku o mirovanju</p>
-<p>&lt; Držimo poruku vidljivu 2 sekunde</p>
-<p>Gasi se LCD ekran radi štednje energije</p>
-<p>&lt; Ponovno brišemo LCD ekran</p>
-<p>&lt; Isključujemo pozadinsko osvjetljenje LCD-a</p>
-<p>Čekamo da se PIR senzor stabilizira (da više nema pokreta)</p>
-<p>&lt; Mali delay kako ne bi nepotrebno opterećivali CPU</p>
-<p>&lt; Potvrda da je senzor stabilan</p>
+<dl class="section note"><dt>Note</dt><dd>Bez čekanja da PIR padne na LOW, mogla bi se dogoditi trenutna reaktivacija alarma. </dd></dl>
+<p>&lt; Deaktivira stanje aktivnog alarma</p>
+<p>&lt; Briše zahtjev za gašenje gumba</p>
+<p>&lt; Briše zahtjev za gašenje putem IR-a</p>
+<p>&lt; Briše sve s LCD zaslona</p>
+<p>&lt; Postavlja kursor na početak prvog reda</p>
+<p>&lt; Prikazuje korisniku status "Stanje mirovanja"</p>
+<p>&lt; Drži poruku 2 sekunde vidljivom</p>
+<p>&lt; Ponovno briše zaslon</p>
+<p>&lt; Gasi pozadinsko osvjetljenje radi uštede energije</p>
+<p>&lt; Čeka da PIR prestane detektirati pokret</p>
+<p>&lt; Provjerava svakih 100 ms je li pokret prestao</p>
 
 </div>
 </div>
@@ -394,17 +513,28 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Inicijalizacija sustava. </p>
-<p>Postavlja konfiguraciju pinova, inicijalizira LCD zaslon, pokreće IR prijemnik, simulira pokretanje sustava s LED i buzzer animacijom te konfigurira eksterni interrupt za PIR senzor (ako nije simulacija). </p>
-<p>Postavljanje načina rada pinova.</p>
-<p>Inicijalizacija LCD zaslona i uključivanje pozadinskog svjetla.</p>
-<p>Prikaz poruke pokretanja sustava.</p>
-<p>Animacija pokretanja sustava.</p>
-<p>LED dioda i buzzer zajedno blinkaju 3 sekunde kako bi vizualno i zvučno označili inicijalizaciju.</p>
-<p>Prikaz statusa "Sustav aktivan" na LCD zaslonu.</p>
-<p>Prikaz poruke prelaska u stanje mirovanja.</p>
-<p>Gašenje pozadinskog svjetla LCD-a nakon inicijalizacije.</p>
-<p>Pokretanje IR prijemnika.</p>
+<p>Inicijalizacija sustava prilikom pokretanja. </p>
+<p>Ova funkcija inicijalizira:</p><ul>
+<li>Serijsku komunikaciju za debug poruke</li>
+<li>Definicije načina rada svih pinova (INPUT, OUTPUT)</li>
+<li>LCD zaslon za ispis statusa</li>
+<li>IR prijemnik za primanje signala s daljinskog upravljača</li>
+<li>Eksterni prekid za PIR senzor (ako nije simulacija)</li>
+</ul>
+<p>Također ispisuje početnu poruku "Čekanje PLAY IR" na LCD zaslon. </p>
+<p>&lt; Pokretanje serijske komunikacije pri brzini 9600 bps</p>
+<p>&lt; Postavljanje pina LED diode kao izlaznog</p>
+<p>&lt; Postavljanje pina buzzera kao izlaznog</p>
+<p>&lt; Postavljanje pina PIR senzora kao ulaznog</p>
+<p>&lt; Postavljanje pina gumba kao ulaznog s internim pull-up otpornikom</p>
+<p>&lt; Postavljanje pina IR prijemnika kao ulaznog</p>
+<p>&lt; Inicijalizacija LCD zaslona</p>
+<p>&lt; Uključivanje pozadinskog osvjetljenja LCD-a</p>
+<p>&lt; Postavljanje kursora na prvi red, prvi stupac LCD-a</p>
+<p>&lt; Ispis početne poruke korisniku: čekanje IR PLAY signala</p>
+<p>&lt; Pokretanje IR prijemnika s uključenim LED feedbackom</p>
+<p>&lt; Informativna poruka o uspješnoj inicijalizaciji IR prijemnika</p>
+<p>&lt; Poruka o završetku inicijalizacije sustava</p>
 
 </div>
 </div>
@@ -423,16 +553,16 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Funkcija za gašenje alarma i prijelaz sustava u pasivno stanje. </p>
-<p>Ova funkcija deaktivira sve vizualne (LED) i zvučne (buzzer) signale alarma, briše prethodne poruke sa LCD zaslona te prikazuje korisniku informaciju da je alarm isključen. Nakon kratkog vremenskog odmaka, sustav prelazi u stanje čekanja (mirovanja).</p>
-<dl class="section note"><dt>Note</dt><dd>Funkcija uključuje kratku pauzu od 1.5 sekunde kako bi korisnik stigao vidjeti obavijest prije nego što se LCD očisti ili isključi. </dd></dl>
-<p>Serijski ispis statusa gašenja alarma za debug.</p>
-<p>Isključivanje LED diode (vizualni signal).</p>
-<p>Isključivanje buzzera (zvučni signal).</p>
-<p>Čišćenje LCD zaslona od prethodnih poruka.</p>
-<p>Pozicioniranje kursora na početak zaslona.</p>
-<p>Prikaz poruke o isključenom alarmu.</p>
-<p>Pauza od 1500 ms za prikaz korisniku prije daljnjih radnji.</p>
+<p>Funkcija za gašenje aktivnog alarma. </p>
+<p>Funkcija deaktivira LED diodu i buzzer (isključuje ih), briše sve s LCD zaslona, prikazuje poruku "Alarm ugasen" te zadržava prikaz te poruke 1.5 sekundi prije nastavka rada.</p>
+<dl class="section note"><dt>Note</dt><dd>Korisniku se daje vizualna potvrda da je alarm ugašen. </dd></dl>
+<p>&lt; Ispis u serijski monitor za potvrdu gašenja alarma</p>
+<p>&lt; Gasi LED diodu</p>
+<p>&lt; Gasi buzzer</p>
+<p>&lt; Čisti sadržaj LCD ekrana</p>
+<p>&lt; Postavlja kursor na početak prvog reda</p>
+<p>&lt; Ispisuje poruku korisniku o gašenju alarma</p>
+<p>&lt; Kratko zadržavanje poruke 1.5 sekundi</p>
 
 </div>
 </div>
@@ -451,8 +581,10 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Funkcija koja se poziva pri buđenju iz sleep moda. </p>
-<p>Funkcija postavlja zastavicu da je PIR senzor aktivirao sustav. </p>
+<p>Funkcija prekida koja se poziva pri buđenju sustava. </p>
+<p>Kada PIR senzor detektira pokret (preko eksternog prekida), ova funkcija postavlja zastavicu <code>wakeUpFlag</code> na <code>true</code>. Glavna petlja (loop) koristi ovu zastavicu kako bi znala da treba aktivirati alarm.</p>
+<dl class="section note"><dt>Note</dt><dd>Funkcija treba biti što brža jer se izvršava unutar ISR (Interrupt Service Routine). </dd></dl>
+<p>&lt; Postavljanje zastavice za buđenje iz sleep moda.</p>
 
 </div>
 </div>
@@ -469,7 +601,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Trenutno stanje alarma. </p>
+<p>Trenutno stanje alarma (aktiviran / deaktiviran) </p>
 
 </div>
 </div>
@@ -485,7 +617,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pin fizičkog gumba. </p>
+<p>Digitalni pin za fizički gumb (INPUT_PULLUP) </p>
 
 </div>
 </div>
@@ -501,7 +633,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pin buzzera. </p>
+<p>Digitalni pin na kojem je spojen buzzer. </p>
 
 </div>
 </div>
@@ -517,7 +649,55 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Interval blinkanja LED/buzzera. </p>
+<p>Interval blinkanja LED/buzzera u milisekundama. </p>
+
+</div>
+</div>
+<a id="a1c07a919e05dd74466f6e4d7882cb032" name="a1c07a919e05dd74466f6e4d7882cb032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c07a919e05dd74466f6e4d7882cb032">&#9670;&#160;</a></span>IR_KOD_GASENJE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint32_t IR_KOD_GASENJE = 0x5DA2FF00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IR kod za POWER tipku (gašenje cijelog sustava) </p>
+
+</div>
+</div>
+<a id="a00069362e9095a0f6a0c9ff9bc516b6b" name="a00069362e9095a0f6a0c9ff9bc516b6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00069362e9095a0f6a0c9ff9bc516b6b">&#9670;&#160;</a></span>IR_KOD_GASENJE_ALARMA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint32_t IR_KOD_GASENJE_ALARMA = 0xCF30FF00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IR kod za tipku 1 (gašenje samo aktivnog alarma) </p>
+
+</div>
+</div>
+<a id="a57302b2a873ba32a98f013fc784e25a0" name="a57302b2a873ba32a98f013fc784e25a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57302b2a873ba32a98f013fc784e25a0">&#9670;&#160;</a></span>IR_KOD_PALJENJE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint32_t IR_KOD_PALJENJE = 0x57A8FF00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IR kod za PLAY tipku (pokretanje sustava) </p>
 
 </div>
 </div>
@@ -533,7 +713,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pin IR prijemnika. </p>
+<p>Digitalni pin za IR prijemnik. </p>
 
 </div>
 </div>
@@ -549,7 +729,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pin LED diode. </p>
+<p>Digitalni pin na kojem je spojena LED dioda. </p>
 
 </div>
 </div>
@@ -565,7 +745,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pin PIR senzora. </p>
+<p>Digitalni pin na kojem je spojen PIR senzor. </p>
 
 </div>
 </div>
@@ -581,7 +761,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vrijeme zadnje promjene LED/buzzera. </p>
+<p>Vrijeme zadnje promjene stanja LED/buzzera za efekt blinkanja. </p>
 
 </div>
 </div>
@@ -597,7 +777,23 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Trenutno stanje LED/buzzera (ON/OFF) </p>
+<p>Trenutno stanje LED diode i buzzera (blinking efekt) </p>
+
+</div>
+</div>
+<a id="acfef90b166278763e5118f5580f48463" name="acfef90b166278763e5118f5580f48463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfef90b166278763e5118f5580f48463">&#9670;&#160;</a></span>sustavPokrenut</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool sustavPokrenut = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Zastavica je li sustav pokrenut IR PLAY tipkom. </p>
 
 </div>
 </div>
@@ -613,7 +809,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Zastavica za buđenje iz sleep moda. </p>
+<p>Zastavica koju postavlja PIR prekid za buđenje iz sleep moda. </p>
 
 </div>
 </div>
@@ -629,7 +825,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vrijeme zadnje PIR detekcije. </p>
+<p>Vrijeme zadnje registracije pokreta PIR senzorom. </p>
 
 </div>
 </div>
@@ -645,7 +841,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vrijeme zadnjeg pritiska gumba. </p>
+<p>Vrijeme posljednjeg pritiska fizičkog gumba. </p>
 
 </div>
 </div>
@@ -661,7 +857,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vrijeme zadnjeg IR signala. </p>
+<p>Vrijeme posljednjeg primljenog IR signala. </p>
 
 </div>
 </div>
@@ -677,7 +873,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Zastavica za gašenje alarma gumbom. </p>
+<p>Zastavica za gašenje alarma putem gumba. </p>
 
 </div>
 </div>
@@ -693,7 +889,23 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Zastavica za gašenje alarma IR daljinskim. </p>
+<p>Zastavica za gašenje alarma putem IR daljinskog (tipka 1) </p>
+
+</div>
+</div>
+<a id="a23c90ddef81fc5238afe8633e20e3ebb" name="a23c90ddef81fc5238afe8633e20e3ebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c90ddef81fc5238afe8633e20e3ebb">&#9670;&#160;</a></span>zahtjevZaGasenjeSustava</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool zahtjevZaGasenjeSustava = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Zastavica za potpuno gašenje sustava putem IR POWER tipke. </p>
 
 </div>
 </div>

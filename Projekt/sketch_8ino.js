@@ -12,15 +12,20 @@ var sketch_8ino =
     [ "buttonPin", "sketch_8ino.html#a4ddb8b6ae564eb22f7c74f2683a63b8e", null ],
     [ "buzzerPin", "sketch_8ino.html#a988a608b186de34e793324aee3ec73ee", null ],
     [ "interval", "sketch_8ino.html#a2e243d502b1d882c3b827c6b070cc02c", null ],
+    [ "IR_KOD_GASENJE", "sketch_8ino.html#a1c07a919e05dd74466f6e4d7882cb032", null ],
+    [ "IR_KOD_GASENJE_ALARMA", "sketch_8ino.html#a00069362e9095a0f6a0c9ff9bc516b6b", null ],
+    [ "IR_KOD_PALJENJE", "sketch_8ino.html#a57302b2a873ba32a98f013fc784e25a0", null ],
     [ "irPin", "sketch_8ino.html#ab1ac24ace0db3b096e56744b0ea173ed", null ],
     [ "ledPin", "sketch_8ino.html#a2cd9f0d96c9cd0637798de3baa7aee60", null ],
     [ "pirPin", "sketch_8ino.html#a8124f4ae570c6b416e85d4948705938e", null ],
     [ "prethodno", "sketch_8ino.html#aa0ac8085d6bd0e2f03eff856c6835a43", null ],
     [ "stanje", "sketch_8ino.html#a1d52a86a270366bbb7d6875a9b0df4d4", null ],
+    [ "sustavPokrenut", "sketch_8ino.html#acfef90b166278763e5118f5580f48463", null ],
     [ "wakeUpFlag", "sketch_8ino.html#ae9c6353b7ababe2622a259d5f71a41ac", null ],
     [ "zadnjeVrijemeDetekcije", "sketch_8ino.html#add49e425acd5c0cfe40c78769b0c1d77", null ],
     [ "zadnjeVrijemeGumba", "sketch_8ino.html#afb1bb411af196187526f8ae6125239ee", null ],
     [ "zadnjeVrijemeIR", "sketch_8ino.html#a632a8150a5127d3ae2080f091b43e048", null ],
     [ "zahtjevZaGasenjeGumbom", "sketch_8ino.html#a8e0ff2d3ee9d861b4231dcc61361c129", null ],
-    [ "zahtjevZaGasenjeIR", "sketch_8ino.html#a4886a63ed5b453590080e57c2cf760a5", null ]
+    [ "zahtjevZaGasenjeIR", "sketch_8ino.html#a4886a63ed5b453590080e57c2cf760a5", null ],
+    [ "zahtjevZaGasenjeSustava", "sketch_8ino.html#a23c90ddef81fc5238afe8633e20e3ebb", null ]
 ];
