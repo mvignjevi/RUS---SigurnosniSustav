@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "author": "Maja Vignjević",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-mini-breadboard", "id": "bb1", "top": -104.6, "left": 120, "attrs": {} },
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 240.6, "left": 441, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 34.8,
+      "left": 368.6,
+      "attrs": { "color": "purple" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 139.2,
+      "left": 364.25,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 21.6,
+      "left": 270.6,
+      "attrs": { "volume": "0.1" }
+    },
+    { "type": "wokwi-ir-remote", "id": "remote1", "top": -307.2, "left": 806.4, "attrs": {} },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd1",
+      "top": -195.2,
+      "left": 428,
+      "attrs": { "pins": "i2c" }
+    },
+    { "type": "wokwi-pir-motion-sensor", "id": "pir1", "top": 128.8, "left": 866.22, "attrs": {} },
+    { "type": "wokwi-ir-receiver", "id": "ir1", "top": 133.05, "left": 775.82, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 44.6,
+      "left": 854.4,
+      "attrs": {
+        "color": "red",
+        "xray": "1",
+        "bounce": "20",
+        "pull": "up"
+      }
+    }
+  ],
+  "connections": [
+    [ "r1:1", "led1:A", "purple", [ "h0" ] ],
+    [ "lcd1:GND", "uno:GND.2", "black", [ "v662.4", "h178.5" ] ],
+    [ "pir1:GND", "uno:GND.3", "black", [ "v268.8", "h-301.86" ] ],
+    [ "pir1:VCC", "uno:5V", "red", [ "v240", "h-301.4" ] ],
+    [ "pir1:OUT", "uno:4", "blue", [ "v9.6", "h-259.34", "v19.2" ] ],
+    [ "ir1:GND", "uno:GND.3", "black", [ "v259.2", "h-176.8" ] ],
+    [ "ir1:VCC", "uno:5V", "red", [ "v230.4", "h-205.4" ] ],
+    [ "ir1:OUT", "uno:5", "blue", [ "v250", "h-195" ] ],
+    [ "bz1:1", "uno:GND.2", "black", [ "v374.4", "h312.9" ] ],
+    [ "led1:C", "uno:GND.2", "black", [ "v412.8", "h226.9" ] ],
+    [ "lcd1:VCC", "uno:5V", "red", [ "v604.9", "h169" ] ],
+    [ "lcd1:SDA", "uno:A4", "green", [ "v605", "h255" ] ],
+    [ "lcd1:SCL", "uno:A5", "green", [ "v605.1", "h264.5" ] ],
+    [ "btn1:2.r", "uno:GND.3", "black", [ "h57.8", "v393.8", "h-359.2" ] ],
+    [ "btn1:1.l", "uno:2", "green", [ "h0" ] ],
+    [ "uno:6", "r1:2", "purple", [ "v0" ] ],
+    [ "ir1:DAT", "uno:3", "gold", [ "v19.2", "h-148" ] ],
+    [ "bz1:2", "uno:5", "gold", [ "v124.8", "h341.4" ] ]
+  ],
+  "dependencies": {}
+}
