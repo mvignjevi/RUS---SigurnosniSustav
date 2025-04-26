@@ -1,378 +1,523 @@
 /**
- * @file AlarmSystem.ino
- * @brief Sustav za detekciju pokreta pomoću PIR senzora s alarmom i podrškom za sleep mode.
- * 
- * Glavne funkcije:
- * - Detekcija pokreta pomoću PIR senzora
- * - Aktivacija alarma (LED + buzzer) pri detekciji
- * - Gašenje alarma pomoću gumba ili IR daljinskog
- * - Sleep mode za štednju energije
- * - LCD ispis statusa sustava
- * 
- * @author 
- * Maja Vignjević (uz asistenciju ArduinoGPT | Code Wizzard)
+ * @file sketch.ino
+ * @brief Upravljanje alarmnim sustavom temeljenim na PIR senzoru uz mogućnost kontrole putem IR daljinskog upravljača.
+ *
+ * @details
+ * Ovaj program omogućava:
+ * - Detekciju pokreta pomoću PIR senzora
+ * - Aktivaciju alarma (LED + buzzer) pri detekciji pokreta
+ * - Gašenje alarma pomoću fizičkog gumba ili IR daljinskog
+ * - Upravljanje sleep modom za uštedu energije
+ * - Pokretanje i gašenje cijelog sustava putem IR daljinskog (PLAY/POWER tipke)
+ * - Prikaz stanja na LCD zaslonu
+ *
+ * @author
+ * Maja Vignjević - mvignjevi@tvz.hr
  */
 
- #include <LiquidCrystal_I2C.h>
- #include <IRremote.hpp>
- #include <avr/sleep.h>
- #include <avr/interrupt.h>
- 
- #define WOKWI_SIMULACIJA ///< Definirati samo tijekom simulacije u Wokwi-u
- 
- const int ledPin = 6;       ///< Pin LED diode
- const int buzzerPin = 5;    ///< Pin buzzera
- const int pirPin = 4;       ///< Pin PIR senzora
- const int irPin = 3;        ///< Pin IR prijemnika
- const int buttonPin = 2;    ///< Pin fizičkog gumba
- 
- LiquidCrystal_I2C lcd(0x27, 20, 4); ///< LCD 20x4 display
- 
- volatile bool wakeUpFlag = false; ///< Zastavica za buđenje iz sleep moda
- bool zahtjevZaGasenjeGumbom = false; ///< Zastavica za gašenje alarma gumbom
- bool zahtjevZaGasenjeIR = false; ///< Zastavica za gašenje alarma IR daljinskim
- bool alarmAktivan = false; ///< Trenutno stanje alarma
- bool stanje = false; ///< Trenutno stanje LED/buzzera (ON/OFF)
- 
- unsigned long prethodno = 0; ///< Vrijeme zadnje promjene LED/buzzera
- const unsigned long interval = 300; ///< Interval blinkanja LED/buzzera
- unsigned long zadnjeVrijemeDetekcije = 0; ///< Vrijeme zadnje PIR detekcije
- unsigned long zadnjeVrijemeIR = 0; ///< Vrijeme zadnjeg IR signala
- unsigned long zadnjeVrijemeGumba = 0; ///< Vrijeme zadnjeg pritiska gumba
- 
- /**
-  * @brief Funkcija koja se poziva pri buđenju iz sleep moda.
-  * 
-  * Funkcija postavlja zastavicu da je PIR senzor aktivirao sustav.
-  */
- void wakeUp() {
-   wakeUpFlag = true;
- }
+#include <LiquidCrystal_I2C.h> ///< Knjižnica za upravljanje LCD 20x4 preko I2C sučelja
+#include <IRremote.hpp>        ///< Knjižnica za upravljanje IR daljinskim prijemom
+#include <avr/sleep.h>         ///< Knjižnica za upravljanje sleep modom procesora
+#include <avr/interrupt.h>     ///< Knjižnica za konfiguraciju prekida
+
+#define WOKWI_SIMULACIJA ///< Definicija za rad u Wokwi simulatoru (onemogućava stvarni sleep)
+
+/** @name Pinovi uređaja
+ * Definicije svih digitalnih pinova korištenih u sustavu.
+ */
+///@{
+const int ledPin = 6;    ///< Digitalni pin na kojem je spojena LED dioda
+const int buzzerPin = 5; ///< Digitalni pin na kojem je spojen buzzer
+const int pirPin = 4;    ///< Digitalni pin na kojem je spojen PIR senzor
+const int irPin = 3;     ///< Digitalni pin za IR prijemnik
+const int buttonPin = 2; ///< Digitalni pin za fizički gumb (INPUT_PULLUP)
+///@}
 
 /**
- * @brief Resetira stanje sustava nakon deaktivacije alarma.
- * 
- * Funkcija izvršava:
- * - Reset svih internih zastavica povezanih s alarmom:
- *   - @c alarmAktivan postaje @c false
- *   - @c zahtjevZaGasenjeGumbom i @c zahtjevZaGasenjeIR postaju @c false
- * - Upravljanje LCD ekranom:
- *   - Prikazuje korisniku poruku "Stanje mirovanja" tijekom 2 sekunde
- *   - Briše ekran i gasi pozadinsko osvjetljenje radi uštede energije
- * - Stabilizaciju PIR senzora:
- *   - Čeka da PIR senzor više ne registrira pokret (OUT pin u LOW stanju)
- * 
+ * @brief LCD objekt za prikaz poruka korisniku (20x4 znakova, I2C adresa 0x27).
+ */
+LiquidCrystal_I2C lcd(0x27, 20, 4);
+
+/** @name Statusne zastavice sustava
+ * Varijable koje čuvaju trenutno stanje sustava i signale za akcije.
+ */
+///@{
+volatile bool wakeUpFlag = false;     ///< Zastavica koju postavlja PIR prekid za buđenje iz sleep moda
+bool zahtjevZaGasenjeGumbom = false;  ///< Zastavica za gašenje alarma putem gumba
+bool zahtjevZaGasenjeIR = false;      ///< Zastavica za gašenje alarma putem IR daljinskog (tipka 1)
+bool alarmAktivan = false;            ///< Trenutno stanje alarma (aktiviran / deaktiviran)
+bool stanje = false;                  ///< Trenutno stanje LED diode i buzzera (blinking efekt)
+bool sustavPokrenut = false;          ///< Zastavica je li sustav pokrenut IR PLAY tipkom
+bool zahtjevZaGasenjeSustava = false; ///< Zastavica za potpuno gašenje sustava putem IR POWER tipke
+///@}
+
+/** @name Definirani IR kodovi
+ * Konstantne vrijednosti za interpretaciju pritisnutih tipki na daljinskom.
+ */
+///@{
+const uint32_t IR_KOD_PALJENJE = 0x57A8FF00;       ///< IR kod za PLAY tipku (pokretanje sustava)
+const uint32_t IR_KOD_GASENJE = 0x5DA2FF00;        ///< IR kod za POWER tipku (gašenje cijelog sustava)
+const uint32_t IR_KOD_GASENJE_ALARMA = 0xCF30FF00; ///< IR kod za tipku 1 (gašenje samo aktivnog alarma)
+///@}
+
+/** @name Varijable za mjerenje vremena
+ * Pomoćne varijable za kontrolu vremena događaja u sustavu.
+ */
+///@{
+unsigned long prethodno = 0;              ///< Vrijeme zadnje promjene stanja LED/buzzera za efekt blinkanja
+const unsigned long interval = 300;       ///< Interval blinkanja LED/buzzera u milisekundama
+unsigned long zadnjeVrijemeDetekcije = 0; ///< Vrijeme zadnje registracije pokreta PIR senzorom
+unsigned long zadnjeVrijemeIR = 0;        ///< Vrijeme posljednjeg primljenog IR signala
+unsigned long zadnjeVrijemeGumba = 0;     ///< Vrijeme posljednjeg pritiska fizičkog gumba
+///@}
+
+/**
+ * @brief Funkcija prekida koja se poziva pri buđenju sustava.
+ *
+ * @details
+ * Kada PIR senzor detektira pokret (preko eksternog prekida),
+ * ova funkcija postavlja zastavicu @c wakeUpFlag na @c true.
+ * Glavna petlja (loop) koristi ovu zastavicu kako bi znala da treba aktivirati alarm.
+ *
+ * @note Funkcija treba biti što brža jer se izvršava unutar ISR (Interrupt Service Routine).
+ */
+void wakeUp()
+{
+    wakeUpFlag = true; ///< Postavljanje zastavice za buđenje iz sleep moda.
+}
+
+/**
+ * @brief Resetira sustav nakon deaktivacije alarma.
+ *
+ * @details
+ * Funkcija:
+ * - Resetira sve zastavice vezane uz alarm (alarmAktivan, zahtjevi za gašenje)
+ * - Prikazuje poruku "Stanje mirovanja" korisniku
+ * - Gasi LCD pozadinsko svjetlo za štednju energije
+ * - Čeka stabilizaciju PIR senzora (da prestane detektirati pokret)
+ *
  * @note
- * Stabilizacija PIR senzora je ključna da bi se spriječila lažna reaktivacija alarma
- * odmah nakon što je prethodni pokret detektiran i alarm ugašen.
+ * Bez čekanja da PIR padne na LOW, mogla bi se dogoditi trenutna reaktivacija alarma.
  */
-void resetStanje() {
-    Serial.println("-- Reset uvjeta detekcije");
+void resetStanje()
+{
+    alarmAktivan = false;           ///< Deaktivira stanje aktivnog alarma
+    zahtjevZaGasenjeGumbom = false; ///< Briše zahtjev za gašenje gumba
+    zahtjevZaGasenjeIR = false;     ///< Briše zahtjev za gašenje putem IR-a
 
-    //! Resetiramo statusne zastavice alarma
-    alarmAktivan = false;            //!< Alarm više nije aktivan
-    zahtjevZaGasenjeGumbom = false;  //!< Gumb za gašenje više nije potreban
-    zahtjevZaGasenjeIR = false;      //!< IR za gašenje više nije potreban
+    lcd.clear();                   ///< Briše sve s LCD zaslona
+    lcd.setCursor(0, 0);           ///< Postavlja kursor na početak prvog reda
+    lcd.print("Stanje mirovanja"); ///< Prikazuje korisniku status "Stanje mirovanja"
+    delay(2000);                   ///< Drži poruku 2 sekunde vidljivom
 
-    //! Prikazujemo korisniku da je sustav u stanju mirovanja
-    lcd.clear();                     //!< Brišemo prethodni sadržaj s LCD ekrana
-    lcd.setCursor(0, 0);              //!< Postavljamo kursor na početak LCD-a
-    lcd.print("Stanje mirovanja");    //!< Ispisujemo poruku o mirovanju
-    delay(2000);                      //!< Držimo poruku vidljivu 2 sekunde
+    lcd.clear();       ///< Ponovno briše zaslon
+    lcd.noBacklight(); ///< Gasi pozadinsko osvjetljenje radi uštede energije
 
-    //! Gasi se LCD ekran radi štednje energije
-    lcd.clear();                      //!< Ponovno brišemo LCD ekran
-    lcd.noBacklight();                //!< Isključujemo pozadinsko osvjetljenje LCD-a
-
-    //! Čekamo da se PIR senzor stabilizira (da više nema pokreta)
-    Serial.println("-- Čekanje da PIR senzor prestane detektirati pokret...");
-    while (digitalRead(pirPin) == HIGH) { 
-        delay(100);                   //!< Mali delay kako ne bi nepotrebno opterećivali CPU
+    ///< Čeka da PIR prestane detektirati pokret
+    while (digitalRead(pirPin) == HIGH)
+    {
+        delay(100); ///< Provjerava svakih 100 ms je li pokret prestao
     }
-    Serial.println("-- PIR senzor se smirio."); //!< Potvrda da je senzor stabilan
 }
 
 /**
- * @brief Funkcija za gašenje alarma i prijelaz sustava u pasivno stanje.
+ * @brief Funkcija za gašenje aktivnog alarma.
  *
- * Ova funkcija deaktivira sve vizualne (LED) i zvučne (buzzer) signale alarma,
- * briše prethodne poruke sa LCD zaslona te prikazuje korisniku informaciju
- * da je alarm isključen. Nakon kratkog vremenskog odmaka, sustav prelazi u
- * stanje čekanja (mirovanja).
+ * @details
+ * Funkcija deaktivira LED diodu i buzzer (isključuje ih),
+ * briše sve s LCD zaslona, prikazuje poruku "Alarm ugasen"
+ * te zadržava prikaz te poruke 1.5 sekundi prije nastavka rada.
  *
- * @note Funkcija uključuje kratku pauzu od 1.5 sekunde kako bi korisnik stigao 
- *       vidjeti obavijest prije nego što se LCD očisti ili isključi.
+ * @note
+ * Korisniku se daje vizualna potvrda da je alarm ugašen.
  */
-void ugasiAlarm() {
-    Serial.println("<< Alarm iskljucen."); //! Serijski ispis statusa gašenja alarma za debug.
+void ugasiAlarm()
+{
+    Serial.println("<< Alarm iskljucen."); ///< Ispis u serijski monitor za potvrdu gašenja alarma
 
-    digitalWrite(ledPin, LOW);             //! Isključivanje LED diode (vizualni signal).
-    digitalWrite(buzzerPin, LOW);           //! Isključivanje buzzera (zvučni signal).
+    digitalWrite(ledPin, LOW);    ///< Gasi LED diodu
+    digitalWrite(buzzerPin, LOW); ///< Gasi buzzer
 
-    lcd.clear();                            //! Čišćenje LCD zaslona od prethodnih poruka.
-    lcd.setCursor(0, 0);                    //! Pozicioniranje kursora na početak zaslona.
-    lcd.print("Alarm ugasen");              //! Prikaz poruke o isključenom alarmu.
+    lcd.clear();               ///< Čisti sadržaj LCD ekrana
+    lcd.setCursor(0, 0);       ///< Postavlja kursor na početak prvog reda
+    lcd.print("Alarm ugasen"); ///< Ispisuje poruku korisniku o gašenju alarma
 
-    delay(1500);                            //! Pauza od 1500 ms za prikaz korisniku prije daljnjih radnji.
+    delay(1500); ///< Kratko zadržavanje poruke 1.5 sekundi
 }
 
 /**
- * @brief Funkcija za ulazak sustava u sleep mode radi štednje energije.
- * 
- * Funkcija stavlja mikrokontroler u najdublji režim spavanja (Power-down),
- * gdje svi moduli prestaju raditi osim onih koji su potrebni za buđenje (PIR).
- * 
- * Kada se kod izvršava u Wokwi simulatoru, stvarno spavanje nije moguće, 
- * pa se umjesto toga koristi simulacija koja aktivno čeka PIR signal (HIGH).
+ * @brief Funkcija za ulazak sustava u sleep mode radi uštede energije.
  *
- * @note Makronaredba `WOKWI_SIMULACIJA` određuje da li se koristi pravo spavanje 
- *       ili simulirano čekanje na pokret.
+ * @details
+ * Kada se koristi stvarni hardver:
+ * - Mikrokontroler ulazi u Power-down sleep mode gdje prestaje s radom do prekida (PIR).
+ *
+ * Kada se koristi Wokwi simulator:
+ * - Sleep mode se simulira aktivnim čekanjem da PIR senzor registrira pokret
+ * - Tijekom čekanja, funkcija detektira i IR signal za gašenje sustava (IR POWER tipka)
+ *
+ * @note
+ * Makronaredba @c WOKWI_SIMULACIJA odlučuje koristi li se stvarni ili simulirani sleep način rada.
  */
-void enterSleep() {
-    #ifndef WOKWI_SIMULACIJA
-        set_sleep_mode(SLEEP_MODE_PWR_DOWN);   //! Postavljanje režima najdubljeg spavanja - Power-down.
-        sleep_enable();                        //! Omogućavanje mogućnosti spavanja procesora.
-        sleep_mode();                          //! Ulazak u režim spavanja - procesor se zaustavlja ovdje.
-        sleep_disable();                       //! Deaktiviranje sleep moda nakon buđenja interruptom.
-    #else
-        Serial.println("-- Simulacija sleep moda: cekam PIR..."); //! Debug poruka za Wokwi simulaciju.
-    
-        while (digitalRead(pirPin) == LOW) {    //! Aktivno čekanje da PIR senzor detektira pokret (HIGH).
-            delay(10);                         //! Kratko čekanje da ne blokiramo procesor nepotrebno.
+void enterSleep()
+{
+#ifndef WOKWI_SIMULACIJA
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN); ///< Postavljanje najdubljeg sleep moda
+    sleep_enable();                      ///< Omogućavanje sleep moda
+    sleep_mode();                        ///< Ulazak u sleep stanje (mikrokontroler se zaustavlja)
+    sleep_disable();                     ///< Onemogućavanje sleep moda nakon buđenja
+#else
+    Serial.println("-- Simulacija sleep moda: cekam PIR..."); ///< Ispis informativne poruke za Wokwi simulaciju
+
+    ///< Aktivno čekanje dok PIR ne registrira pokret ili ne primimo IR naredbu za gašenje
+    while (digitalRead(pirPin) == LOW && !zahtjevZaGasenjeSustava)
+    {
+        delay(10); ///< Kratko čekanje za rasterećenje CPU-a
+
+        ///< Provjera ima li novih IR signala
+        if (IrReceiver.decode())
+        {
+            uint32_t kod = IrReceiver.decodedIRData.decodedRawData; ///< Spremanje primljenog IR koda
+
+            Serial.print(">> IR signal detektiran. Kod: 0x");
+            Serial.println(kod, HEX);
+
+            if (kod == IR_KOD_GASENJE)
+            {
+                zahtjevZaGasenjeSustava = true; ///< Postavlja se zahtjev za gašenje sustava
+                Serial.println(">> Sustav isključen (IR POWER) tijekom cekanja PIR!");
+            }
+            IrReceiver.resume(); ///< Priprema IR prijemnika za sljedeći signal
         }
-    
-        wakeUpFlag = true;                     //! Postavljanje zastavice za signalizaciju buđenja.
-    #endif
-}
-    
-/**
- * @brief Inicijalizacija sustava.
- * 
- * Postavlja konfiguraciju pinova, inicijalizira LCD zaslon,
- * pokreće IR prijemnik, simulira pokretanje sustava s LED i buzzer animacijom
- * te konfigurira eksterni interrupt za PIR senzor (ako nije simulacija).
- */
-void setup() {
-    Serial.begin(9600);
-  
-    /** 
-     * @brief Postavljanje načina rada pinova.
-     */
-    pinMode(ledPin, OUTPUT);
-    pinMode(buzzerPin, OUTPUT);
-    pinMode(pirPin, INPUT);
-    pinMode(buttonPin, INPUT_PULLUP);
-    pinMode(irPin, INPUT);
-  
-    /** 
-     * @brief Inicijalizacija LCD zaslona i uključivanje pozadinskog svjetla.
-     */
-    lcd.init();
-    lcd.backlight();
-  
-    /** 
-     * @brief Prikaz poruke pokretanja sustava.
-     */
-    lcd.setCursor(0, 0);
-    lcd.print("Pokretanje sustava");
-  
-    /**
-     * @brief Animacija pokretanja sustava.
-     * 
-     * LED dioda i buzzer zajedno blinkaju 3 sekunde
-     * kako bi vizualno i zvučno označili inicijalizaciju.
-     */
-    unsigned long startBlinkanja = millis();
-    while (millis() - startBlinkanja < 3000) {
-      digitalWrite(ledPin, HIGH);
-      digitalWrite(buzzerPin, HIGH);
-      delay(250);
-      digitalWrite(ledPin, LOW);
-      digitalWrite(buzzerPin, LOW);
-      delay(250);
     }
-  
-    /** 
-     * @brief Prikaz statusa "Sustav aktivan" na LCD zaslonu.
-     */
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Sustav aktivan");
-    delay(4000);
-  
-    /** 
-     * @brief Prikaz poruke prelaska u stanje mirovanja.
-     */
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Prelazak u");
-    lcd.setCursor(0, 1);
-    lcd.print("  stanje mirovanja");
-    delay(2000);
-  
-    /** 
-     * @brief Gašenje pozadinskog svjetla LCD-a nakon inicijalizacije.
-     */
-    lcd.clear();
-    lcd.noBacklight();
-  
-    /**
-     * @brief Pokretanje IR prijemnika.
-     */
-    IrReceiver.begin(irPin, ENABLE_LED_FEEDBACK);
-    Serial.println("IR prijemnik omogućen.");
-    Serial.println("Sustav spreman.");
-  
-  #ifndef WOKWI_SIMULACIJA
-    /**
-     * @brief Postavljanje eksternog prekida na PIR pin.
-     * 
-     * Prekid se aktivira na rastući brid (RISING) izlaza PIR senzora,
-     * omogućujući buđenje iz sleep moda.
-     */
-    attachInterrupt(digitalPinToInterrupt(pirPin), wakeUp, RISING);
-  #endif
+
+    wakeUpFlag = true; ///< Postavljanje zastavice za buđenje iz simuliranog sleepa
+#endif
 }
-  
+
+/**
+ * @brief Inicijalizacija sustava prilikom pokretanja.
+ *
+ * @details
+ * Ova funkcija inicijalizira:
+ * - Serijsku komunikaciju za debug poruke
+ * - Definicije načina rada svih pinova (INPUT, OUTPUT)
+ * - LCD zaslon za ispis statusa
+ * - IR prijemnik za primanje signala s daljinskog upravljača
+ * - Eksterni prekid za PIR senzor (ako nije simulacija)
+ *
+ * Također ispisuje početnu poruku "Čekanje PLAY IR" na LCD zaslon.
+ */
+void setup()
+{
+    Serial.begin(9600); ///< Pokretanje serijske komunikacije pri brzini 9600 bps
+
+    pinMode(ledPin, OUTPUT);          ///< Postavljanje pina LED diode kao izlaznog
+    pinMode(buzzerPin, OUTPUT);       ///< Postavljanje pina buzzera kao izlaznog
+    pinMode(pirPin, INPUT);           ///< Postavljanje pina PIR senzora kao ulaznog
+    pinMode(buttonPin, INPUT_PULLUP); ///< Postavljanje pina gumba kao ulaznog s internim pull-up otpornikom
+    pinMode(irPin, INPUT);            ///< Postavljanje pina IR prijemnika kao ulaznog
+
+    lcd.init();      ///< Inicijalizacija LCD zaslona
+    lcd.backlight(); ///< Uključivanje pozadinskog osvjetljenja LCD-a
+
+    lcd.setCursor(0, 0);          ///< Postavljanje kursora na prvi red, prvi stupac LCD-a
+    lcd.print("Cekanje PLAY IR"); ///< Ispis početne poruke korisniku: čekanje IR PLAY signala
+
+    IrReceiver.begin(irPin, ENABLE_LED_FEEDBACK); ///< Pokretanje IR prijemnika s uključenim LED feedbackom
+    Serial.println("IR prijemnik omogućen.");     ///< Informativna poruka o uspješnoj inicijalizaciji IR prijemnika
+    Serial.println("Sustav spreman.");            ///< Poruka o završetku inicijalizacije sustava
+
+#ifndef WOKWI_SIMULACIJA
+    attachInterrupt(digitalPinToInterrupt(pirPin), wakeUp, RISING); ///< Postavljanje eksternog interrupta za PIR senzor (na RISING brid)
+#endif
+}
+
 /**
  * @brief Glavna petlja sustava.
- * 
- * Provjerava stanje gumba, IR signala i PIR detekciju,
- * upravlja aktivacijom i deaktivacijom alarma te prelascima u sleep mode.
+ *
+ * @details
+ * Funkcija neprekidno izvršava sljedeće:
+ * - Provjerava zahtjev za gašenje cijelog sustava (IR POWER tipkom)
+ * - Čita stanje fizičkog gumba
+ * - Sprema trenutno i prethodno stanje gumba za detekciju pritiska
  */
-void loop() {
+void loop()
+{
     /**
-     * @brief Čitanje trenutnog stanja gumba.
-     * 
-     * 0 = gumb pritisnut (LOW zbog INPUT_PULLUP).
-     * 1 = gumb nije pritisnut.
+     * @brief Provjera zahtjeva za isključivanje cijelog sustava.
+     *
+     * Ako je primljen zahtjev za gašenje (IR POWER) i sustav je pokrenut, sustav se isključuje:
+     * - Briše LCD ekran
+     * - Prikazuje poruku o gašenju sustava
+     * - Resetira sve kontrolne varijable
+     * - Gasi LED i buzzer
+     * - Izlazi iz funkcije loop()
+     */
+    if (zahtjevZaGasenjeSustava && sustavPokrenut)
+    {
+        Serial.println(">> Sustav isključen (IR POWER)."); ///< Ispis poruke o isključenju sustava
+        lcd.clear();                                       ///< Brisanje trenutnog sadržaja LCD zaslona
+        lcd.setCursor(0, 0);                               ///< Postavljanje kursora na početak LCD-a
+        lcd.print("Sustav ugasen");                        ///< Prikaz poruke o isključenju sustava
+        delay(3000);                                       ///< Pauza kako bi korisnik mogao pročitati poruku
+        lcd.clear();                                       ///< Ponovno čišćenje LCD zaslona
+        lcd.noBacklight();                                 ///< Gašenje pozadinskog osvjetljenja LCD zaslona
+
+        //! Resetiranje stanja sustava
+        sustavPokrenut = false;          ///< Sustav više nije pokrenut
+        alarmAktivan = false;            ///< Alarm se gasi
+        wakeUpFlag = false;              ///< Resetiranje buđenja
+        zahtjevZaGasenjeSustava = false; ///< Resetiranje zahtjeva za gašenje
+
+        //! Gašenje svih signalnih uređaja
+        digitalWrite(ledPin, LOW);    ///< Gašenje LED diode
+        digitalWrite(buzzerPin, LOW); ///< Gašenje buzzera
+
+        return; ///< Izlazak iz funkcije loop() — ništa dalje se ne izvršava
+    }
+
+    /**
+     * @brief Čitanje stanja fizičkog gumba.
+     *
+     * Očitava se trenutačno stanje gumba:
+     * - LOW = pritisnut
+     * - HIGH = nije pritisnut (INPUT_PULLUP logika)
      */
     int gumbStanje = digitalRead(buttonPin);
-  
+
     /**
-     * @brief Pohrana prethodnog stanja gumba za detekciju "falling edge" događaja (otpuštanje-pritisak).
-     * 
-     * Inicijalno postavljeno na HIGH (nepritisnut gumb).
+     * @brief Spremanje prethodnog stanja gumba.
+     *
+     * Potrebno za detekciju "falling edge" događaja (s visoke na nisku razinu).
+     *
+     * @note
+     * Inicijalno postavljeno na HIGH jer gumb nije pritisnut (zbog pull-upa).
      */
     static bool prosloStanjeGumba = HIGH;
-  
+
     /**
-     * @brief Spremanje trenutno pročitanog stanja gumba za usporedbu s prethodnim stanjem.
+     * @brief Spremanje trenutnog stanja gumba.
+     *
+     * Koristi se za usporedbu s prethodnim stanjem.
      */
     bool trenutnoStanjeGumba = gumbStanje;
 
-      /**
-   * @brief Detekcija promjene stanja gumba (falling edge).
-   * 
-   * Ako je prethodno stanje bilo HIGH (gumb nije bio pritisnut), 
-   * a trenutno stanje LOW (gumb sada pritisnut),
-   * tada bilježimo trenutak pritiska i pokrećemo odgovarajuću akciju.
-   */
-  if (prosloStanjeGumba == HIGH && trenutnoStanjeGumba == LOW) {
-    
     /**
-     * @brief Bilježenje vremena pritiska gumba.
-     * 
-     * Koristi se za eventualno debouncing ili kasnije provjere trajanja pritiska.
+     * @brief Detekcija pritiska fizičkog gumba (falling edge detekcija).
+     *
+     * @details
+     * Provjerava prijelaz stanja gumba s HIGH na LOW, što znači da je korisnik pritisnuo gumb.
+     * Ako je alarm trenutno aktivan, postavlja se zahtjev za njegovo gašenje.
      */
-    zadnjeVrijemeGumba = millis();
+    if (prosloStanjeGumba == HIGH && trenutnoStanjeGumba == LOW)
+    {
+        zadnjeVrijemeGumba = millis(); ///< Bilježenje trenutnog vremena pritiska gumba
 
-    /**
-     * @brief Provjera da li je alarm aktivan.
-     * 
-     * Ako je aktivan, postavlja se zastavica za gašenje alarma preko gumba.
-     */
-    if (alarmAktivan) {
-      zahtjevZaGasenjeGumbom = true;
-      Serial.println(">> LOOP: Gumb pritisnut (aktivni alarm).");
-    } 
-    else {
-      Serial.println(">> LOOP: Gumb pritisnut (ignorisano – alarm nije aktivan).");
-    }
+        /**
+         * @brief Provjera je li alarm trenutno aktivan.
+         *
+         * Ako jest, postavlja se zastavica za gašenje alarma putem gumba.
+         */
+        if (alarmAktivan)
+        {
+            zahtjevZaGasenjeGumbom = true;                              ///< Postavlja zahtjev za gašenje alarma pritiskom gumba
+            Serial.println(">> LOOP: Gumb pritisnut (aktivni alarm)."); ///< Informativni ispis za korisnika / debug
+        }
     }
 
     /**
-     * @brief Ažuriranje prethodnog stanja gumba za sljedeću iteraciju.
+     * @brief Ažuriranje prethodnog stanja gumba.
+     *
+     * Sprema trenutno stanje gumba za sljedeću iteraciju loop() funkcije,
+     * kako bi se i dalje mogla detektirati promjena stanja.
      */
     prosloStanjeGumba = trenutnoStanjeGumba;
 
-        /**
-     * @brief Provjerava postoji li novi IR signal i reagira na prihvaćeni kod.
-     * 
-     * Dekodira primljeni IR signal. Ako je kod prepoznat kao kod za gašenje alarma
-     * i prošlo je više od 500 ms od zadnje IR aktivnosti, postavlja zahtjev za gašenje alarma.
+    /**
+     * @brief Obrada primljenih IR signala.
+     *
+     * @details
+     * Dekodira se primljeni IR signal i provjerava kojem tipu naredbe pripada:
+     * - Ako je IR_KOD_PALJENJE (PLAY tipka), pokreće sustav ako još nije aktiviran.
+     * - Ako je IR_KOD_GASENJE (POWER tipka), postavlja zahtjev za gašenje cijelog sustava.
+     * - Ako je IR_KOD_GASENJE_ALARMA (tipka 1) i alarm je aktivan, postavlja zahtjev za gašenje alarma.
      */
-    if (IrReceiver.decode()) {
-        uint32_t kod = IrReceiver.decodedIRData.decodedRawData; ///< Spremanje dekodiranog IR signala
-    
+    if (IrReceiver.decode())
+    {
+        uint32_t kod = IrReceiver.decodedIRData.decodedRawData; ///< Spremanje dekodiranog IR koda
+
         Serial.print(">> IR signal detektiran. Kod: 0x");
         Serial.println(kod, HEX);
-    
-        if ((kod == 0xCF30FF00 || kod == 0xFFA25D) && millis() - zadnjeVrijemeIR > 500) {
-        zahtjevZaGasenjeIR = true; ///< Postavljanje zastavice za gašenje alarma putem IR
-        zadnjeVrijemeIR = millis(); ///< Ažuriranje vremena zadnjeg IR signala
-        Serial.println(">> LOOP: IR kod prihvaćen.");
+
+        /**
+         * @brief Provjera je li primljena IR naredba za pokretanje sustava (PLAY tipka).
+         */
+        if (kod == IR_KOD_PALJENJE)
+        {
+            if (!sustavPokrenut)
+            {                          ///< Pokreni sustav samo ako već nije pokrenut
+                sustavPokrenut = true; ///< Označi da je sustav pokrenut
+                wakeUpFlag = false;    ///< Resetiraj zastavicu za buđenje
+
+                lcd.clear();
+                lcd.backlight();
+                lcd.setCursor(0, 0);
+                lcd.print("Pokretanje sustava");
+
+                /**
+                 * @brief Animacija pokretanja - LED i buzzer blinkaju 3 sekunde.
+                 */
+                unsigned long startBlinkanja = millis();
+
+                while (millis() - startBlinkanja < 3000)
+                {
+                    digitalWrite(ledPin, HIGH);
+                    digitalWrite(buzzerPin, HIGH);
+                    delay(250);
+                    digitalWrite(ledPin, LOW);
+                    digitalWrite(buzzerPin, LOW);
+                    delay(250);
+                }
+
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("Sustav aktivan");
+                delay(4000);
+
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("Prelazak u");
+                lcd.setCursor(0, 1);
+                lcd.print("  stanje mirovanja");
+                delay(2000);
+
+                lcd.clear();
+                lcd.noBacklight(); ///< Isključi LCD pozadinsko svjetlo radi štednje
+
+                Serial.println(">> Sustav pokrenut (IR PLAY)."); ///< Informacija da je sustav pokrenut
+            }
         }
-    
-        IrReceiver.resume(); ///< Priprema IR prijemnika za sljedeći signal
+
+        /**
+         * @brief Provjera je li primljena IR naredba za gašenje cijelog sustava (POWER tipka).
+         */
+        else if (kod == IR_KOD_GASENJE)
+        {
+            zahtjevZaGasenjeSustava = true; ///< Postavljanje zahtjeva za gašenje sustava
+        }
+
+        /**
+         * @brief Provjera je li primljena IR naredba za gašenje samo aktivnog alarma (tipka 1).
+         */
+        else if (kod == IR_KOD_GASENJE_ALARMA && alarmAktivan)
+        {
+            zahtjevZaGasenjeIR = true;                                      ///< Postavljanje zahtjeva za gašenje alarma putem IR
+            Serial.println(">> LOOP: IR kod za gašenje ALARMA (tipka 1)."); ///< Informativna poruka
+        }
+
+        IrReceiver.resume(); ///< Priprema IR prijemnika za primanje novih signala
     }
 
     /**
-     * @brief Aktivira alarm nakon buđenja iz sleep moda.
-     * 
-     * Ako sustav nije aktivirao alarm i ako je postavljena zastavica buđenja
-     * (nakon detekcije pokreta PIR senzorom), pokreće se alarm.
-     * Postavlja se vrijeme zadnje detekcije i omogućava pozadinsko svjetlo LCD ekrana.
+     * @brief Provjera stanja pokrenutosti sustava.
+     *
+     * Ako sustav nije pokrenut putem IR PLAY tipke, izlazi iz funkcije @c loop() bez daljnje obrade.
+     *
+     * @note
+     * Sustav neće reagirati na PIR, gumb ili IR signale dok nije aktivno pokrenut korisničkom naredbom.
      */
-    if (!alarmAktivan && wakeUpFlag) {
-        wakeUpFlag = false;               ///< Resetiranje zastavice buđenja
-        zadnjeVrijemeDetekcije = millis(); ///< Pohranjivanje vremena detekcije pokreta
-        alarmAktivan = true;               ///< Postavljanje stanja aktivnog alarma
-        lcd.backlight();                   ///< Paljenje LCD pozadinskog osvjetljenja
-        Serial.println(">> Pokret detektiran. Alarm aktiviran."); ///< Informacija o aktivaciji alarma
+    if (!sustavPokrenut)
+    {
+        return; ///< Prekid funkcije - sustav čeka na pokretanje.
     }
-  
+
     /**
- * @brief Upravljanje ponašanjem aktivnog alarma.
- * 
- * Kad je alarm aktiviran, LED dioda i buzzer blinkaju u određenim intervalima.
- * Ispisuje se upozorenje na LCD ekran.
- * Također provjerava zahtjev za gašenje alarma (bilo putem gumba ili IR daljinskog upravljača).
- */
-if (alarmAktivan) {
-    unsigned long trenutno = millis(); ///< Dohvaća trenutno vrijeme u milisekundama
-  
-    if (trenutno - prethodno >= interval) { ///< Provjerava je li prošlo dovoljno vremena za promjenu stanja
-      prethodno = trenutno; ///< Ažurira vrijeme posljednje promjene
-      stanje = !stanje; ///< Inverzira stanje LED diode i buzzera (ON/OFF)
-  
-      digitalWrite(ledPin, stanje); ///< Uključuje ili isključuje LED diodu ovisno o stanju
-      digitalWrite(buzzerPin, stanje); ///< Uključuje ili isključuje buzzer ovisno o stanju
-  
-      lcd.setCursor(0, 0); ///< Postavlja kursor na početak prvog reda LCD-a
-      lcd.print(stanje ? "   UPOZORENJE" : "               "); ///< Ispisuje upozorenje ili briše sadržaj reda
-  
-      lcd.setCursor(0, 1); ///< Postavlja kursor na početak drugog reda LCD-a
-      lcd.print(stanje ? "Pokret detektiran" : "                   "); ///< Ispisuje poruku o detekciji pokreta ili briše red
+     * @brief Aktivacija alarma nakon buđenja iz sleep moda.
+     *
+     * Ako alarm trenutno nije aktiviran, a zastavica za buđenje (PIR) je postavljena,
+     * sustav prelazi u aktivno stanje alarma.
+     */
+    if (!alarmAktivan && wakeUpFlag)
+    {
+        wakeUpFlag = false; ///< Resetiranje zastavice buđenja da se spriječi višestruka aktivacija.
+
+        zadnjeVrijemeDetekcije = millis(); ///< Spremanje trenutnog vremena detekcije za kasniju obradu.
+
+        alarmAktivan = true; ///< Označavanje da je alarm sada aktivan.
+
+        lcd.backlight(); ///< Paljenje pozadinskog svjetla LCD ekrana za prikaz alarma.
+
+        Serial.println(">> Pokret detektiran. Alarm aktiviran."); ///< Informacija u serijskom monitoru o aktivaciji alarma.
     }
-  
-    if (zahtjevZaGasenjeGumbom || zahtjevZaGasenjeIR) { ///< Provjerava je li primljen zahtjev za gašenje alarma
-        ugasiAlarm(); ///< Poziva funkciju za gašenje alarma
-        zahtjevZaGasenjeGumbom = false; ///< Resetira zastavicu zahtjeva za gašenje preko gumba
-        zahtjevZaGasenjeIR = false; ///< Resetira zastavicu zahtjeva za gašenje preko IR signala
-        resetStanje(); ///< Resetira sustav u stanje mirovanja
+
+    /**
+     * @brief Upravljanje aktivnim alarmom i njegovim gašenjem.
+     *
+     * Ako je alarm aktiviran:
+     * - LED dioda i buzzer blinkaju u definiranim vremenskim intervalima.
+     * - Ispisuju se odgovarajuće poruke upozorenja na LCD ekranu.
+     * - Provjerava se zahtjev za gašenje alarma (preko gumba ili IR signala).
+     */
+    if (alarmAktivan)
+    {
+        unsigned long trenutno = millis(); ///< Dohvaćanje trenutnog vremena u milisekundama.
+
+        /**
+         * @brief Upravljanje blinkanjem LED/buzzera.
+         *
+         * Ako je proteklo dovoljno vremena od zadnje promjene stanja (definirano s @c interval),
+         * mijenja se stanje LED diode i buzzera.
+         */
+        if (trenutno - prethodno >= interval)
+        {
+            prethodno = trenutno; ///< Ažurira vrijeme posljednje promjene.
+
+            stanje = !stanje; ///< Inverzija stanja (ON/OFF) za LED i buzzer.
+
+            digitalWrite(ledPin, stanje);    ///< Postavlja stanje LED diode.
+            digitalWrite(buzzerPin, stanje); ///< Postavlja stanje buzzera.
+
+            lcd.setCursor(0, 0);                                     ///< Postavlja kursor na početak prvog reda LCD-a.
+            lcd.print(stanje ? "   UPOZORENJE" : "               "); ///< Prikazuje ili briše upozorenje o pokretu.
+
+            lcd.setCursor(0, 1);                                             ///< Postavlja kursor na početak drugog reda LCD-a.
+            lcd.print(stanje ? "Pokret detektiran" : "                   "); ///< Prikazuje ili briše opis pokreta.
         }
-    }  
+
+        /**
+         * @brief Provjera zahtjeva za gašenje alarma.
+         *
+         * Ako je korisnik pritisnuo gumb ili poslao IR signal za gašenje:
+         * - Alarm se gasi.
+         * - Resetiraju se zastavice zahtjeva za gašenje.
+         * - Sustav se vraća u stanje mirovanja.
+         */
+        if (zahtjevZaGasenjeGumbom || zahtjevZaGasenjeIR)
+        {
+            ugasiAlarm(); ///< Poziv funkcije za gašenje alarma.
+
+            zahtjevZaGasenjeGumbom = false; ///< Resetiranje zahtjeva za gašenje putem gumba.
+            zahtjevZaGasenjeIR = false;     ///< Resetiranje zahtjeva za gašenje putem IR signala.
+
+            resetStanje(); ///< Povratak sustava u pasivno stanje (stanje mirovanja).
+        }
+    }
+
     /**
-     * @brief Upravljanje ulaskom u sleep mod kad je sustav miran.
-     * 
-     * Ako alarm nije aktivan i PIR senzor ne detektira pokret (LOW stanje),
-     * sustav ulazi u simulirani ili stvarni sleep mod ovisno o konfiguraciji.
+     * @brief Upravljanje ulaskom u sleep mode kada alarm nije aktivan.
+     *
+     * Ako alarm nije aktivan i PIR senzor detektira stanje mirovanja (LOW na PIR izlazu):
+     * - Sustav se prebacuje u sleep mode (ili simulaciju sleepa).
      */
-    else if (!alarmAktivan && digitalRead(pirPin) == LOW) {
-        Serial.println("-- Ulazak u sleep mode..."); ///< Ispis informativne poruke o ulasku u sleep
-        delay(200); ///< Kratka pauza prije ulaska u sleep zbog stabilizacije sustava
-        enterSleep(); ///< Poziv funkcije za ulazak u sleep mod (simulirani ili stvarni)
-        Serial.println("-- Probudili smo se!"); ///< Ispis poruke nakon buđenja iz sleep moda
-    }  
+    else if (!alarmAktivan && digitalRead(pirPin) == LOW)
+    {
+        Serial.println("-- Ulazak u sleep mode..."); ///< Poruka o ulasku u sleep mode.
+
+        delay(200); ///< Kratka pauza radi stabilizacije sustava.
+
+        enterSleep(); ///< Poziv funkcije za ulazak u sleep mode.
+
+        Serial.println("-- Probudili smo se!"); ///< Poruka o buđenju iz sleepa.
+    }
 }
