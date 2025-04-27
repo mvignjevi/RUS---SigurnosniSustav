@@ -1,0 +1,20 @@
+@startuml
+actor Korisnik
+participant "IR prijemnik" as IR
+participant "Mikrokontroler (Arduino)" as MCU
+participant "LCD zaslon" as LCD
+participant "LED + Buzzer" as Aktuatori
+
+Korisnik -> IR : Pritisak IR tipke (PLAY ili POWER)
+IR -> MCU : IR signal dekodiran
+alt Ako PLAY tipka
+    MCU -> Aktuatori : Blinka LED + Buzzer 3 sekunde
+    MCU -> LCD : Prikazuje "Sustav aktiviran"
+    MCU -> MCU : Aktivira stanje detekcije pokreta
+else Ako POWER tipka
+    MCU -> Aktuatori : Gasi LED + Buzzer
+    MCU -> LCD : Prikazuje "Sustav ugasen"
+    MCU -> MCU : Ulazak u stanje mirovanja
+end
+
+@enduml
