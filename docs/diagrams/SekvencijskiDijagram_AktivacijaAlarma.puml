@@ -5,7 +5,7 @@ participant "Buzzer + LED" as Actuators
 participant "LCD zaslon" as LCD
 
 PIR -> MCU : Detekcija pokreta
+MCU -> MCU : Buđenje iz sleep moda
 MCU -> Actuators : Aktivacija LED i Buzzera
-MCU -> LCD : Prikazuje "Alarm aktiviran!"
-
+MCU -> LCD : Prikazuje "Alarm aktiviran"
 @enduml
