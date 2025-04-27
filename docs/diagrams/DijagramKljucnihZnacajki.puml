@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+
+actor Korisnik
+actor PIR_senzor
+actor IR_daljinski
+
+rectangle "Sigurnosni sustav" {
+  usecase "Detekcija pokreta" as UC1
+  usecase "Aktivacija alarma (LED + buzzer)" as UC2
+  usecase "Deaktivacija alarma fizičkim gumbom" as UC3
+  usecase "Deaktivacija alarma IR tipkom '1'" as UC4
+  usecase "Ulazak u sleep mod" as UC5
+  usecase "Buđenje iz sleep moda" as UC6
+  usecase "Potpuno gašenje sustava IR POWER tipkom" as UC7
+}
+
+PIR_senzor --> UC1
+UC1 --> UC2
+
+Korisnik --> UC3
+IR_daljinski --> UC4
+
+UC2 --> UC5 : ako nema pokreta
+
+PIR_senzor --> UC6 : pokret detektiran
+
+IR_daljinski --> UC7
+
+@enduml
