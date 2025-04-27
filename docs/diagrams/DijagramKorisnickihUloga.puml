@@ -1,0 +1,15 @@
+@startuml
+actor Korisnik
+
+rectangle "Sigurnosni sustav" {
+    (Pritisak fizičkog gumba za deaktivaciju)
+    (Pritisak IR tipke 'PLAY')
+    (Pritisak IR tipke 'POWER')
+    (Pritisak IR tipke '1')
+}
+
+Korisnik --> (Pritisak fizičkog gumba za deaktivaciju)
+Korisnik --> (Pritisak IR tipke 'PLAY')
+Korisnik --> (Pritisak IR tipke 'POWER')
+Korisnik --> (Pritisak IR tipke '1')
+@enduml
