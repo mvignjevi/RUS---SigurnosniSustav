@@ -1,0 +1,23 @@
+@startuml
+actor Korisnik
+
+rectangle "Sigurnosni sustav (Mikrokontroler)" {
+  [IR prijemnik]
+  [PIR senzor]
+  [Fizički gumb]
+  [LED dioda]
+  [Buzzer]
+  [LCD zaslon]
+}
+
+Korisnik --> [IR prijemnik] : IR naredbe (PLAY, POWER, 1)
+Korisnik --> [Fizički gumb] : Pritiskanje gumba
+
+[PIR senzor] --> [Sigurnosni sustav (Mikrokontroler)] : Signal pokreta
+[IR prijemnik] --> [Sigurnosni sustav (Mikrokontroler)] : IR signal
+[Fizički gumb] --> [Sigurnosni sustav (Mikrokontroler)] : Gumb pritisnut
+
+[Sigurnosni sustav (Mikrokontroler)] --> [LED dioda] : Aktivacija/gašenje
+[Sigurnosni sustav (Mikrokontroler)] --> [Buzzer] : Aktivacija/gašenje
+[Sigurnosni sustav (Mikrokontroler)] --> [LCD zaslon] : Prikaz statusa
+@enduml
