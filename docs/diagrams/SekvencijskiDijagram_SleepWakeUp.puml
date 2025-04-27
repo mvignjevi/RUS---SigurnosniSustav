@@ -1,0 +1,12 @@
+@startuml
+actor "Mikrokontroler (Arduino)" as MCU
+participant "PIR senzor" as PIR
+participant "LED + Buzzer" as Aktuatori
+participant "LCD zaslon" as LCD
+
+MCU -> MCU : Ulazak u sleep mod (ili čekanje PIR signala)
+PIR -> MCU : Signal detekcije pokreta
+MCU -> MCU : Wake-up iz sleep moda
+MCU -> Aktuatori : Aktivacija LED i Buzzera
+MCU -> LCD : Prikazuje upozorenje
+@enduml
