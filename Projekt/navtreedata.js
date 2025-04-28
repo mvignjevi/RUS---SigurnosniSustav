@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "RUS_Projekt", "index.html", [
+    [ "Sigurnosni sustav za detekciju pokreta", "index.html", "index" ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "Globals", "globals.html", [
