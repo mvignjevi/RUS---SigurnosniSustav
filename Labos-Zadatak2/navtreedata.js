@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "RUS_Lab2_upravljanje_energijom", "index.html", [
+    [ "Upravljanje potrošnjom energije", "index.html", "index" ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "Globals", "globals.html", [

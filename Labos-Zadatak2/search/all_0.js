@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buttonpin_0',['buttonPin',['../sketch_8ino.html#a4ddb8b6ae564eb22f7c74f2683a63b8e',1,'sketch.ino']]]
+  ['1_20implementacija_20sleep_20moda_0',['1. Implementacija Sleep moda',['../index.html#autotoc_md4',1,'']]]
 ];

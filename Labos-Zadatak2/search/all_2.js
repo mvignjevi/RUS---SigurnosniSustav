@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['isr_0',['ISR',['../sketch_8ino.html#a43905d6fb5c4d433a49f527fa6ab811f',1,'sketch.ino']]]
+  ['3_20efikasno_20upravljanje_20ulaskom_20i_20izlaskom_20iz_20sleep_20moda_0',['3. Efikasno upravljanje ulaskom i izlaskom iz Sleep moda',['../index.html#autotoc_md6',1,'']]]
 ];
