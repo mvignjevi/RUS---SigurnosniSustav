@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['lab1_3a_20prekidi_20u_20ugradbenim_20sustavima_0',['Lab1: Prekidi u Ugradbenim Sustavima',['..//home/runner/work/RUS---SigurnosniSustav/RUS---SigurnosniSustav/Labos-Zadatak1/Readme.md#autotoc_md0',1,'']]],
+  ['lab1_3a_20prekidi_20u_20ugradbenim_20sustavima_0',['Lab1: Prekidi u Ugradbenim Sustavima',['../index.html',1,'']]],
   ['led_5f0_1',['LED_0',['../sketch_8ino.html#aa94efefdb04d44c846c163f108d52ae9',1,'sketch.ino']]],
   ['led_5f1_2',['LED_1',['../sketch_8ino.html#aaf81f5fa7d1e779f83e9bf4ce631a7b6',1,'sketch.ino']]],
   ['led_5f2_3',['LED_2',['../sketch_8ino.html#ae60a8c1e03b38463f77d556a4a0a8a3b',1,'sketch.ino']]],

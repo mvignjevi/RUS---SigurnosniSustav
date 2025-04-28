@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rus_5flab1_5fprekidi_0',['RUS_Lab1_prekidi',['../index.html',1,'']]]
+  ['lab1_3a_20prekidi_20u_20ugradbenim_20sustavima_0',['Lab1: Prekidi u Ugradbenim Sustavima',['../index.html',1,'']]]
 ];
