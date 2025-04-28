@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['isr_0',['isr',['../sketch_8ino.html#a9c4665742c6b6eb1f0bb9dde41f7cba3',1,'ISR(PCINT2_vect):&#160;sketch.ino'],['../sketch_8ino.html#ad39420cdd896dd12c68e36313139d0a5',1,'ISR(TIMER1_COMPA_vect):&#160;sketch.ino']]]
+  ['distance_0',['distance',['../sketch_8ino.html#ac4ce473e63792dd4940f3e9e59576527',1,'sketch.ino']]],
+  ['dokumentacije_20koda_1',['Automatizacija dokumentacije koda',['..//home/runner/work/RUS---SigurnosniSustav/RUS---SigurnosniSustav/Labos-Zadatak1/Readme.md#autotoc_md7',1,'']]]
 ];
