@@ -5,7 +5,7 @@ HTML_OUTPUT            = html
 USE_MDFILE_AS_MAINPAGE = Readme.md
 INPUT                  = .
 RECURSIVE              = YES
-FILE_PATTERNS          = *.c *.h *.ino
+FILE_PATTERNS          = *.c *.h *.ino *.md
 EXTENSION_MAPPING      = ino=c
 GENERATE_HTML          = YES
 GENERATE_LATEX         = NO
